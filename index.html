@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="炉石传说全方位攻略站，涵盖当前环境分析、11职业攻略、热门卡组推荐、新手入门指南与进阶技巧。从青铜到传说，助你登顶。">
+  <meta property="og:title" content="炉石传说攻略站 - 从入门到传说">
+  <meta property="og:description" content="全方位策略指南：环境速览、职业攻略、卡组推荐、新手入门与进阶技巧。">
+  <meta property="og:type" content="website">
+  <title>炉石传说攻略站 - 从入门到传说</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">跳到主内容</a>
+
+<header class="site-header">
+  <div class="container">
+    <h1 class="logo">🔥 炉石传说攻略站</h1>
+    <p class="subtitle">从新手到传说 · 全方位策略指南</p>
+    <nav class="nav-bar">
+      <a href="#meta">当前环境</a>
+      <a href="#heroes">职业攻略</a>
+      <a href="#decks">卡组推荐</a>
+      <a href="#beginner">新手入门</a>
+      <a href="#tips">进阶技巧</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换亮色/暗色主题">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-banner" id="main-content">
+  <div class="container">
+    <h2>在酒馆中打磨你的技艺</h2>
+    <p>掌握对局节奏、资源管理与卡组构筑，一步步登上传说宝座</p>
+    <div class="banner-stats">
+      <div class="stat-item"><span class="stat-num">11</span><span class="stat-label">职业</span></div>
+      <div class="stat-item"><span class="stat-num">5000+</span><span class="stat-label">可收集卡牌</span></div>
+      <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">主流模式</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="meta" class="section meta-section">
+  <div class="container">
+    <h2 class="section-title">📊 当前环境 (Meta) 速览</h2>
+    <div class="meta-grid">
+      <div class="meta-card tier-s">
+        <span class="tier-badge">T1</span>
+        <h3>恶魔猎手</h3>
+        <p>快攻残片 DH 以极低曲线压制对手，前期铺场 + 过牌能力顶尖。</p>
+        <span class="winrate">胜率 54.2%</span>
+      </div>
+      <div class="meta-card tier-s">
+        <span class="tier-badge">T1</span>
+        <h3>死亡骑士</h3>
+        <p>三色符文体系灵活多变，血DK控制能力极强，冰DK快攻也不俗。</p>
+        <span class="winrate">胜率 53.8%</span>
+      </div>
+      <div class="meta-card tier-a">
+        <span class="tier-badge">T2</span>
+        <h3>圣骑士</h3>
+        <p>纯圣契骑与龙骑两个方向都有稳定表现，BUFF体系滚雪球能力强。</p>
+        <span class="winrate">胜率 52.1%</span>
+      </div>
+      <div class="meta-card tier-a">
+        <span class="tier-badge">T2</span>
+        <h3>术士</h3>
+        <p>疲劳术与诅咒术消耗战表现优异，后期终结能力无可匹敌。</p>
+        <span class="winrate">胜率 51.6%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="heroes" class="section heroes-section">
+  <div class="container">
+    <h2 class="section-title">⚔️ 职业攻略</h2>
+    <div class="search-box">
+      <input type="text" id="heroSearch" placeholder="搜索职业名称或关键词..." aria-label="搜索职业">
+      <span class="search-icon">🔍</span>
+    </div>
+    <p class="search-empty" id="heroSearchEmpty" style="display:none;">没有找到匹配的职业</p>
+    <div class="heroes-grid" id="heroesGrid">
+    </div>
+    <noscript>
+      <p style="text-align:center;color:var(--text-muted);padding:20px;">⚠️ 请启用 JavaScript 以查看职业攻略详情。</p>
+    </noscript>
+  </div>
+</section>
+
+<section id="decks" class="section decks-section">
+  <div class="container">
+    <h2 class="section-title">🎴 热门卡组推荐</h2>
+    <div class="deck-filter">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="aggro">快攻</button>
+      <button class="filter-btn" data-filter="midrange">中速</button>
+      <button class="filter-btn" data-filter="control">控制</button>
+      <button class="filter-btn" data-filter="combo">组合技</button>
+      <button class="compare-toggle-btn" id="compareToggle">⚖️ 对比模式</button>
+    </div>
+    <div class="compare-panel" id="comparePanel" style="display:none;">
+      <div class="compare-slot" id="compareSlot1">
+        <span class="compare-placeholder">选择第1个卡组</span>
+      </div>
+      <div class="compare-vs">VS</div>
+      <div class="compare-slot" id="compareSlot2">
+        <span class="compare-placeholder">选择第2个卡组</span>
+      </div>
+    </div>
+    <div class="decks-grid" id="decksGrid">
+    </div>
+    <noscript>
+      <p style="text-align:center;color:var(--text-muted);padding:20px;">⚠️ 请启用 JavaScript 以查看热门卡组推荐。</p>
+    </noscript>
+  </div>
+</section>
+
+<section id="beginner" class="section beginner-section">
+  <div class="container">
+    <h2 class="section-title">🎓 新手入门指南</h2>
+    <div class="guide-steps">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <h3>理解基础规则</h3>
+        <ul>
+          <li><strong>法力水晶：</strong>每回合增长1颗（上限10），用于出牌和使用英雄技能。</li>
+          <li><strong>随从交换：</strong>用你的随从攻击敌方随从，保护己方英雄，建立场面优势。</li>
+          <li><strong>卡牌类型：</strong>随从、法术、武器、英雄牌、地标 — 各有不同用途。</li>
+          <li><strong>关键词：</strong>突袭、嘲讽、圣盾、亡语、战吼等是游戏核心机制。</li>
+        </ul>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <h3>构筑第一套卡组</h3>
+        <ul>
+          <li>新手推荐从<strong>快攻卡组</strong>入手 — 操作简单、节奏明快。</li>
+          <li>确保<strong>法力曲线</strong>平滑：1-3费的牌约占一半。</li>
+          <li>卡组中<strong>随从占比</strong>建议在60%-70%。</li>
+          <li>优先合成<strong>中立传说</strong>卡牌，多职业通用。</li>
+        </ul>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <h3>掌握核心概念</h3>
+        <ul>
+          <li><strong>节奏 (Tempo)：</strong>每回合最大化利用法力水晶。</li>
+          <li><strong>卡差 (Card Advantage)：</strong>过牌比对手多 = 资源多。</li>
+          <li><strong>血量即资源：</strong>有时卖血保场面是正确选择。</li>
+          <li><strong>斩杀线：</strong>时刻计算对手的OTK范围。</li>
+        </ul>
+      </div>
+      <div class="step-card">
+        <div class="step-number">04</div>
+        <h3>爬天梯策略</h3>
+        <ul>
+          <li>熟悉<strong>1-2套主流卡组</strong>，比会玩很多套更有效。</li>
+          <li>遇到连败果断<strong>暂停匹配</strong>，调整心态再战。</li>
+          <li>记住对手卡组的<strong>关键回合</strong>（如7费牧师必防AOE）。</li>
+          <li>从青铜到传说需要约<strong>150-200场</strong>净胜。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quiz-section" id="quizSection">
+      <button class="quiz-start-btn" id="quizStartBtn">📝 测验你的知识</button>
+      <div class="quiz-container" id="quizContainer" style="display:none;"></div>
+    </div>
+  </div>
+</section>
+
+<section id="tips" class="section tips-section">
+  <div class="container">
+    <h2 class="section-title">💡 进阶技巧</h2>
+    <div class="tips-accordion">
+      <div class="tip-item">
+        <button class="tip-header" id="tip-header-1" aria-expanded="false" aria-controls="tip-body-1">🎯 资源管理艺术 <span class="arrow">▾</span></button>
+        <div class="tip-body" id="tip-body-1" role="region" aria-labelledby="tip-header-1">
+          <p>高手与普通玩家的最大区别在于资源管理。核心原则：</p>
+          <ul>
+            <li><strong>手牌管理：</strong>不要把牌打光 — 保持2-3张手牌应对后续回合。</li>
+            <li><strong>AOE骗术：</strong>铺场时留下部分资源，迫使对手交AOE后重新展开。</li>
+            <li><strong>过牌时机：</strong>在法力水晶溢出前过牌，不要等到手牌打空才着急抽牌。</li>
+            <li><strong>武器耐久：</strong>留1点耐久的武器有时比用完更有威慑力。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tip-item">
+        <button class="tip-header" id="tip-header-2" aria-expanded="false" aria-controls="tip-body-2">🧠 读牌与预判 <span class="arrow">▾</span></button>
+        <div class="tip-body" id="tip-body-2" role="region" aria-labelledby="tip-header-2">
+          <p>高水平对局中，你需要通过对手的每一个动作推断其手牌：</p>
+          <ul>
+            <li>对手突然不用英雄技能 → 手里有解牌在等你的关键随从。</li>
+            <li>快攻卡组在5费后还没铺场 → 可能在攒OTK组件。</li>
+            <li>对手留大量手牌不用 → 控制卡组，准备打后手翻盘。</li>
+            <li>观察对手每回合的<strong>犹豫时间</strong> — 犹豫越长，选择越多。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tip-item">
+        <button class="tip-header" id="tip-header-3" aria-expanded="false" aria-controls="tip-body-3">🏗️ 卡组构筑原理 <span class="arrow">▾</span></button>
+        <div class="tip-body" id="tip-body-3" role="region" aria-labelledby="tip-header-3">
+          <p>理解卡组构筑逻辑，你就能自己调优卡组：</p>
+          <ul>
+            <li><strong>核心组 (8-12张)：</strong>卡组的制胜引擎，不可替换。</li>
+            <li><strong>支援组 (10-14张)：</strong>过牌、解场、回复 — 保证卡组流畅运转。</li>
+            <li><strong>科技位 (2-4张)：</strong>针对环境的灵活卡位，根据天梯对手调整。</li>
+            <li><strong>曲线检查：</strong>确保每个费用点都有可用的牌。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tip-item">
+        <button class="tip-header" id="tip-header-4" aria-expanded="false" aria-controls="tip-body-4">🎲 随机性与概率 <span class="arrow">▾</span></button>
+        <div class="tip-body" id="tip-body-4" role="region" aria-labelledby="tip-header-4">
+          <p>炉石有大量随机性，但高手知道如何最大化概率：</p>
+          <ul>
+            <li><strong>发现 (Discover)：</strong>选择时优先考虑当前局势最需要的牌。</li>
+            <li><strong>抽牌概率：</strong>卡组还剩20张，某张牌抽到的概率 = 剩余数量/20。</li>
+            <li><strong>随机伤害：</strong>尽量先清掉小随从再放随机伤害法术，提高命中率。</li>
+            <li><strong>风险对冲：</strong>不要孤注一掷 — 随机效果当锦上添花，不当救命稻草。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>🍺 在酒馆里，每个人都能成为传说</p>
+    <p class="footer-note">本网站为玩家自制攻略，内容基于游戏理解与社区共识。卡牌数据请以游戏内实际为准。</p>
+  </div>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="返回顶部">⬆</a>
+
+<script src="script.js"></script>
+</body>
+</html>
