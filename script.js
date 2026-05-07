@@ -70,117 +70,120 @@ const heroes = [
 
 // ========== Deck Data (2026.05 — 大地的裂变) ==========
 const decks = [
+  // ===== 标准模式 T1 =====
   {
     name: '兆示萨', cls: '萨满', type: 'combo', tier: 'T1', format: 'standard',
-    desc: '6费兆示龙→7费死亡之翼返场→风怒刀终结。节奏链极强，高分段最稳定上分选择。',
-    dust: '约 8,600 尘', cost: '中',
-    cards: '兆示之龙、死亡之翼、风怒刀、海潮之力',
-    code: 'AAECAZKrBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+    desc: '补丁后钻石到传说5508场胜率58.8%。兆示龙→奥拉基尔返场→风怒刀终结，当前最稳定上分选择。',
+    dust: '约 9,200 尘', cost: '中',
+    cards: '兆示之龙、奥拉基尔·风暴之主、风怒刀、海潮之力',
+    code: 'AAECAaoICq+fBP2fBMODB4KYB9umB9+mB+WmB9C/B4LUB5vUBwrmlgf1rAexsAe8sQePvgfDwAfJwAf3wAf2wQfm/QcAAA=='
   },
   {
     name: '法术瞎', cls: '恶魔猎手', type: 'aggro', tier: 'T1', format: 'standard',
-    desc: '海洋咒符+布洛克斯加奋战+双地标体系。对多数卡组优势，黄金赛验证竞技强度。',
-    dust: '约 7,200 尘', cost: '中',
+    desc: '海洋咒符+布洛克斯+双地标体系，解场打脸兼顾。直伤充足，对多数卡组保持优势，56.0%胜率。',
+    dust: '约 7,600 尘', cost: '中',
     cards: '海洋咒符、布洛克斯·亡刃、邪能地标、残片震击',
-    code: 'AAECAZDdAwTn9QXHpAbEuAbBwQYNlugFhaoG/q4GprMG7b4GxNEG1NEGpdIGotYGm9kGvOEG4OIGAAA='
+    code: 'AAECAea5Awi2nwSKqgeSqgeTqgeUvwfQvwfUyQeb1AcLs6AE4fgF3v8GqocHpYgHtJcHtpcHjb8Hkr8Hlb8H4L8HAAA='
   },
   {
     name: '兆示龙战', cls: '战士', type: 'midrange', tier: 'T1', format: 'standard',
-    desc: '战士最强形态，按费拍怪+兆示联动+龙族BUFF，57.6%胜率。',
+    desc: '4费先觉蜿变幼龙→5费乘风浮龙→赤红深渊，中期场面定型。拉格纳罗斯巨型提供压制力，57.6%胜率。',
     dust: '约 11,400 尘', cost: '高',
-    cards: '拉格纳罗斯·绝世烈火、末世特使、龙息烈焰',
-    code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
+    cards: '拉格纳罗斯·绝世烈火、先觉蜿变幼龙、乘风浮龙、赤红深渊',
+    code: 'AAECAQcEhJ0H0L8HzskHm9QHDePmBqr8Bqv8BveDB+iHB9KXB4+xB9CyB+yyB4S9B7XAB6/BB6DFBwAA'
   },
   {
-    name: '打脸法', cls: '法师', type: 'aggro', tier: 'T1', format: 'standard',
-    desc: '极致快攻，高效过牌+海量直伤，59.4%胜率冠绝。7费前终结比赛。',
-    dust: '约 4,800 尘', cost: '低',
-    cards: '炎爆术、冰枪术、火球术、大法师安东尼',
-    code: 'AAECAf0EBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+    name: '直伤法', cls: '法师', type: 'aggro', tier: 'T1', format: 'standard',
+    desc: '裂变体系+高效过牌+海量直伤，287场/63.8%（部分分段）。7费前终结比赛，当前环境最强快攻之一。',
+    dust: '约 5,200 尘', cost: '低',
+    cards: '裂变法术、冰枪术、火球术、大法师安东尼',
+    code: 'AAECAf0EArOHB4i+Bw79ngTHhwf0kQeflgfopQeLsQfWvAfXwweGxAeSxAebxAesxgeT2geG4AcAAA=='
   },
   {
-    name: '结束骑(光环骑)', cls: '圣骑士', type: 'midrange', tier: 'T1', format: 'standard',
-    desc: '版本答案！低费站场→光环BUFF滚雪球→终极一波，62.3%胜率领跑。',
-    dust: '约 14,700 尘', cost: '高',
-    cards: '光铸凯尔萨斯、光环护盾、龙骑之誓、克洛玛图斯',
-    code: 'AAECAZ8FBITgBY3OBYCuBt++Bg2cnwTunwTQpAW9pwXR+AXVngbCngafoAaroAavqAbRrAbPvQYAAA=='
-  },
-  {
-    name: '彩虹DK', cls: '死亡骑士', type: 'control', tier: 'T2', format: 'standard',
-    desc: '三色符文灵活应对所有对局，吸血光环+大量解牌让快攻绝望。国际服S级。',
-    dust: '约 9,800 尘', cost: '高',
-    cards: '吸血光环、帕奇维克、血虫感染、冰霜巨龙',
-    code: 'AAECAfHhBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
-  },
-  {
-    name: '控制战', cls: '战士', type: 'control', tier: 'T2', format: 'standard',
-    desc: '叠最厚的甲，解最多的场。后期靠绝命乱斗清场后反杀，打不死的小强。',
-    dust: '约 10,800 尘', cost: '高',
-    cards: '绝命乱斗、奥丁、裂盾一击、盾牌猛击',
-    code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
-  },
-  {
-    name: '树人德', cls: '德鲁伊', type: 'aggro', tier: 'T2', format: 'standard',
-    desc: '快速跳费→铺场树人海→群体BUFF带走。造价低廉，新手友好。',
+    name: '快攻猎(T7猎)', cls: '猎人', type: 'aggro', tier: 'T1', format: 'standard',
+    desc: '62%胜率！低费随从站场+英雄技能持续输出+杀戮命令终结。操作简单，新手上分首选。',
     dust: '约 3,200 尘', cost: '低',
-    cards: '树人召唤、丛林之魂、自然之力、古夫·符文图腾',
-    code: 'AAECAZICBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+    cards: '杀戮命令、动物伙伴、快速射击、兽群呼唤',
+    code: 'AAECAR8G054GmacHmqcHm6cHxbEHwbIHDKmfBKqfBK+SB4WVB86bB+6fB5CnB5inB9SvB7TAB7nAB7vABwA='
+  },
+  {
+    name: '灌注德', cls: '德鲁伊', type: 'aggro', tier: 'T1', format: 'standard',
+    desc: '529场/67.3%胜率（补丁前）！前期跳费灌注→中期铺场爆发。热修后仍保持高胜率，环境定义者之一。',
+    dust: '约 7,200 尘', cost: '中',
+    cards: '古夫·符文图腾、树人召唤、自然之力、塞纳留斯',
+    code: 'AAECAZICBtb6BqqBB5KDB/KDB6+HB5iXBwyunwSB1ATggQf3gQeIgwewhwfAhwekiQeqrwfWwAfXwAfswAcAAA=='
+  },
+  // ===== 标准模式 T2 =====
+  {
+    name: '光环骑', cls: '圣骑士', type: 'midrange', tier: 'T2', format: 'standard',
+    desc: '低费站场→光环BUFF滚雪球→克洛玛图斯巨型终结。经典滚雪球体系，54%胜率，适合稳健型玩家。',
+    dust: '约 10,800 尘', cost: '高',
+    cards: '光铸凯尔萨斯、克洛玛图斯、光环护盾、龙骑之誓',
+    code: 'AAECAZ8FCvD+Bsj/BrSBB8ODB+6oB++oB/CoB/SqB+XBB6vGBwrJoATv/ga6lgebqQfLqQfErge+sgfiwQfowQfqwQcA'
   },
   {
     name: '兆示蛋术', cls: '术士', type: 'combo', tier: 'T2', format: 'standard',
-    desc: '兆示关键词联动，单卡爆发力极强。自残过牌→兆示组件→OTK斩杀。',
-    dust: '约 8,200 尘', cost: '中',
-    cards: '兆示之卵、暗影华尔兹、黑眼、痛苦诅咒',
-    code: 'AAECAf0GBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+    desc: '兆示关键词联动，自残过牌→兆示组件→OTK斩杀。小样本胜率高达77%，上限极高但吃熟练度。',
+    dust: '约 8,600 尘', cost: '中',
+    cards: '兆示之卵、暗影华尔兹、黑眼、拉法姆',
+    code: 'AAECAf0GBsODB/WYB9edB9C/B/jTB5vUBwyPnwTnoATrhAepiAeEmQfgnQePvgeTvgfXvgfYvgfgvgf0wQcA'
   },
   {
-    name: '自然萨', cls: '萨满', type: 'aggro', tier: 'T2', format: 'standard',
-    desc: '低费自然法术+元素联动快速铺场。55%胜率，传奇分段热门之选。',
+    name: '兆示贼', cls: '潜行者', type: 'combo', tier: 'T2', format: 'standard',
+    desc: '环境出场率最高(16%)！4费即可打出希奈丝特拉巨型。吃熟练度，上限极高，好玩又有强度。',
+    dust: '约 8,800 尘', cost: '中',
+    cards: '希奈丝特拉、兆示匕首、钢铁舞者、钩镰弯刀',
+    code: 'AAECAaIHDtmiBqGBB5KDB4KYB9GdB4aoB4eoB4ioB8euB8u2B9C/B4rUB5vUB4jZBwj3nwTTngaQgwfBlwe0wQfAwQedxQfVxQcAAA=='
+  },
+  {
+    name: '麦琳德', cls: '德鲁伊', type: 'midrange', tier: 'T2', format: 'standard',
+    desc: '8.1%出场率/55.2%胜率！柳牙为核心的跳费体系，中期爆发力极强。德鲁伊稳定上分选择。',
+    dust: '约 10,200 尘', cost: '高',
+    cards: '柳牙、古夫·符文图腾、塞纳留斯、优胜劣汰',
+    code: 'AAECAZICBtb6BqqBB5KDB/KDB6+HB5iXBwyunwSB1ATggQf3gQeIgwewhwfAhwekiQeqrwfWwAfXwAfswAcAAA=='
+  },
+  {
+    name: '任务法', cls: '法师', type: 'combo', tier: 'T2', format: 'standard',
+    desc: '挂刀超展开体系，营地千胜构筑验证。裂变法术分裂+任务奖励终结，适合喜欢OTK的玩家。',
+    dust: '约 9,800 尘', cost: '高',
+    cards: '打开时空之门、裂变法术、大法师安东尼、卡雷苟斯',
+    code: 'AAECAanlBwTygwenmwfysgecgggNm/IGtfoG8ZEHsJsH+psH2J4H0aYHy7YH+cMHhsQHksQHk9oHhuAHAAA='
+  },
+  {
+    name: '铺场德', cls: '德鲁伊', type: 'aggro', tier: 'T2', format: 'standard',
+    desc: '55-59.3%胜率！快速跳费→铺场树人海→群体BUFF一波带走。造价低廉，打不过兆示但稳定上分。',
     dust: '约 3,800 尘', cost: '低',
-    cards: '闪电箭、图腾巨像、自然之怒、熔岩爆裂',
-    code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+    cards: '树人召唤、丛林之魂、自然之力、古夫·符文图腾',
+    code: 'AAECAZICAuDAB7HjBw6HnwTZnwSB1ASuhwfEjAeSlweUlwfanQfgnQe4nwfJrAfWwAfbwAePwQcA'
   },
   {
-    name: '法术法', cls: '法师', type: 'midrange', tier: 'T2', format: 'standard',
-    desc: '法术联动+强力AOE清场+后期大法师爆发。元素体系提供稳定过牌。',
-    dust: '约 7,600 尘', cost: '中',
-    cards: '流水元素、元素唤醒、炎爆术、大法师安东尼',
-    code: 'AAECAf0EBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+    name: '兆示DK', cls: '死亡骑士', type: 'control', tier: 'T2', format: 'standard',
+    desc: '三色符文+兆示体系，帮桑迪套件提供强力返场。应对快攻和控制都有手段，全面型卡组。',
+    dust: '约 9,600 尘', cost: '高',
+    cards: '复活的奥妮克希亚、帮桑迪、吸血光环、帕奇维克',
+    code: 'AAECAfHhBAqSgwfDgweCmAefngfSrgeosQfisQfQvwfqyQeb1AcKh/YE2OUGgf0Gl4IHupUHkasHj74Hjr8HmsUH0MUHAAA='
   },
   {
-    name: '纯净骑', cls: '圣骑士', type: 'midrange', tier: 'T2', format: 'standard',
-    desc: '纯职业卡联动、光环BUFF体系滚雪球。无中立卡触发强力职业加成。',
-    dust: '约 6,400 尘', cost: '中',
-    cards: '光铸远征军、青铜龙、龙息烈焰、时光探险者',
-    code: 'AAECAZ8FBITgBY3OBYCuBt++Bg2cnwTunwTQpAW9pwXR+AXVngbCngafoAaroAavqAbRrAbPvQYAAA=='
+    name: '任务牧', cls: '牧师', type: 'control', tier: 'T2', format: 'standard',
+    desc: '任务奖励提供无限价值，大量解牌和回复耗死对手。偏娱乐向但中低分段表现不错，体验独特。',
+    dust: '约 9,400 尘', cost: '高',
+    cards: '暗言术·毁、灵魂之镜、窃取、暗影精华',
+    code: 'AAECAa0GBqiWB/ypB4CqB4SqB+SyB4O/BwzwnwTLoASg+wbD/waFhgedrQeFvweWvwebvweixAeyxQeW/AcAAA=='
   },
+  // ===== 标准模式 T3 / 预算 =====
   {
-    name: '野兽猎', cls: '猎人', type: 'aggro', tier: 'T2', format: 'standard',
-    desc: '蓝白构筑极致性价比，简单粗暴打脸。新手上分首选，只需一张免费传说。',
-    dust: '约 2,400 尘', cost: '低',
-    cards: '杀戮命令、动物伙伴、暴龙王、快速射击',
-    code: 'AAECAR8Cx6QG5OQGDoagBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BqDIBq7IBrDIBvDKBgAA'
-  },
-  {
-    name: '龙战(吼爹版)', cls: '战士', type: 'midrange', tier: 'T2', format: 'standard',
-    desc: '全蓝白仅1橙！56.2%胜率（7128场），按费拍怪节奏清晰，新手入坑首选。',
+    name: '龙战(吼爹版)', cls: '战士', type: 'midrange', tier: 'T3', format: 'standard',
+    desc: '全蓝白仅1橙！按费拍怪节奏清晰，56.2%胜率（7128场）。新手入坑首选，性价比最高。',
     dust: '约 3,600 尘', cost: '低',
     cards: '格罗玛什·地狱咆哮、龙匠、奥金斧、库卡隆精英',
     code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
   },
   {
-    name: '控制牧', cls: '牧师', type: 'control', tier: 'T3', format: 'standard',
-    desc: '海量解牌和回复，偷牌耗资源，持久战天花板。造价昂贵但体验独特。',
-    dust: '约 12,000 尘', cost: '高',
-    cards: '暗言术·毁、灵魂之镜、窃取、暗影精华',
-    code: 'AAECAZKrBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
-  },
-  {
-    name: '机械贼', cls: '潜行者', type: 'midrange', tier: 'T3', format: 'standard',
-    desc: '机械亡语联动，场面无限续杯。56%胜率，特定对局中有奇效。',
-    dust: '约 5,800 尘', cost: '中',
-    cards: '机械龙、钩镰弯刀、钢铁舞者、齿轮大师',
-    code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEhPYEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+    name: '树人德', cls: '德鲁伊', type: 'aggro', tier: 'T3', format: 'standard',
+    desc: '蓝白构筑极致性价比，简单粗暴铺场打脸。新手上分首选，只需一张免费传说即可启动。',
+    dust: '约 2,400 尘', cost: '低',
+    cards: '树人召唤、丛林之魂、自然之力、古夫·符文图腾',
+    code: 'AAECAZICBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   // ========== 狂野模式 ==========
   {
