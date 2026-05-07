@@ -720,24 +720,15 @@ if (cardsGrid) {
     const pageCards = filteredCards.slice(start, start + PER_PAGE);
 
     cardsGrid.innerHTML = pageCards.map(c => {
-      const clsName = CLASS_MAP[getCardClass(c)] || '中立';
-      const typeName = TYPE_MAP[c.type] || c.type;
-      const rarityName = RARITY_MAP[c.rarity] || c.rarity;
-      const stats = c.type === 'MINION' ? ` ${c.attack || 0}/${c.health || 0}` : (c.type === 'WEAPON' ? ` ${c.attack || 0}/${c.health || 0}` : '');
       const cardImg = `https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/${c.id}.png`;
+      const cardImgBig = `https://art.hearthstonejson.com/v1/render/latest/zhCN/512x/${c.id}.png`;
 
       return `
         <div class="card-item">
-          <div class="card-cost-badge">${c.cost ?? '—'}</div>
-          <div class="card-info">
-            <div class="card-name">${c.name || '未知'}</div>
-            <div class="card-type-line">
-              <span class="rarity-${c.rarity}">${rarityName}</span> · ${typeName}${stats} · ${clsName}
-            </div>
-            ${c.text ? `<div class="card-text">${c.text.replace(/\$/g,'')}</div>` : ''}
-            <span class="card-set-tag">${c.set || ''}</span>
+          <img src="${cardImg}" alt="${c.name || '卡牌'}" loading="lazy" onerror="this.style.display='none'">
+          <div class="card-hover-zoom">
+            <img src="${cardImgBig}" alt="${c.name || '卡牌'}" loading="lazy">
           </div>
-          <div class="card-img-wrap"><img src="${cardImg}" alt="${c.name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
         </div>`;
     }).join('');
 
