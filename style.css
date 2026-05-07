@@ -868,6 +868,166 @@ a:hover { color: var(--gold-dark); }
   padding: 4px 8px; border-radius: 4px;
 }
 
+/* ========== Card Browser ========== */
+.cards-controls {
+  margin-bottom: 24px;
+}
+
+.cards-filter-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 12px; justify-content: center;
+}
+
+.cards-filter-btn {
+  padding: 7px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: all 0.2s;
+}
+.cards-filter-btn:hover, .cards-filter-btn.active {
+  background: var(--gold-dark);
+  color: #fff;
+  border-color: var(--gold-dark);
+}
+
+.cards-select {
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+}
+.cards-select:focus { border-color: var(--gold); }
+
+.cards-search {
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text);
+  font-size: 0.85rem;
+  outline: none;
+  min-width: 220px;
+  flex: 1;
+  max-width: 360px;
+}
+.cards-search::placeholder { color: var(--text-muted); }
+.cards-search:focus { border-color: var(--gold); }
+
+.cards-loading {
+  text-align: center; padding: 48px;
+  color: var(--text-muted); font-size: 1rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.card-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex; gap: 12px;
+  transition: all 0.2s;
+  position: relative;
+  cursor: default;
+}
+.card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--gold-dark);
+}
+
+.card-cost-badge {
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 1rem; color: #fff;
+}
+
+.card-info { flex: 1; min-width: 0; }
+
+.card-name {
+  font-size: 0.95rem; color: var(--text-bright);
+  font-weight: bold; margin-bottom: 2px;
+}
+
+.card-type-line {
+  font-size: 0.72rem; color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.card-type-line .rarity-COMMON { color: #9d9d9d; }
+.card-type-line .rarity-RARE { color: #3a7bd4; }
+.card-type-line .rarity-EPIC { color: #8b3ad4; }
+.card-type-line .rarity-LEGENDARY { color: #f0b823; }
+
+.card-stats {
+  font-size: 0.82rem; color: var(--text);
+  margin-bottom: 4px;
+}
+
+.card-text {
+  font-size: 0.78rem; color: var(--text-muted);
+  line-height: 1.5;
+}
+.card-text b { color: var(--text); }
+
+.card-set-tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px; border-radius: 8px;
+  font-size: 0.65rem;
+  background: var(--bg-input);
+  color: var(--text-muted);
+}
+
+.card-img-wrap {
+  flex-shrink: 0; width: 100px;
+  display: none;
+}
+.card-item:hover .card-img-wrap { display: block; position: absolute; top: -180px; left: 50%; transform: translateX(-50%); z-index: 10; }
+.card-item:hover .card-img-wrap img {
+  width: 200px; border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.cards-pagination {
+  display: flex; justify-content: center; align-items: center;
+  gap: 8px; margin-top: 28px; flex-wrap: wrap;
+}
+
+.cards-page-btn {
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.cards-page-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+.cards-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.cards-page-btn.active { background: var(--gold-dark); color: #fff; border-color: var(--gold-dark); }
+
+.cards-result-info {
+  text-align: center; font-size: 0.85rem;
+  color: var(--text-muted); margin-top: 12px;
+}
+
 /* ========== Responsive ========== */
 @media (max-width: 768px) {
   .logo { font-size: 1.6rem; }
@@ -884,4 +1044,9 @@ a:hover { color: var(--gold-dark); }
   .arena-modes { grid-template-columns: 1fr; }
   .tips-grid { grid-template-columns: 1fr; }
   .version-tag { display: block; margin: 6px auto 0; width: fit-content; }
+  .cards-controls { gap: 6px; }
+  .cards-filter-btn { padding: 6px 10px; font-size: 0.75rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .cards-search { min-width: 0; max-width: none; width: 100%; }
+  .cards-filter-row { gap: 6px; }
 }

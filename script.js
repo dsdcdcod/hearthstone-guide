@@ -642,3 +642,167 @@ if (bgGrid) {
   }
 }
 
+// ========== Card Browser ==========
+const cardsGrid = document.getElementById('cardsGrid');
+const cardsLoading = document.getElementById('cardsLoading');
+const cardsPagination = document.getElementById('cardsPagination');
+const classFilters = document.getElementById('classFilters');
+const typeFilter = document.getElementById('typeFilter');
+const rarityFilter = document.getElementById('rarityFilter');
+const costFilter = document.getElementById('costFilter');
+const cardSearch = document.getElementById('cardSearch');
+
+if (cardsGrid) {
+  const CLASS_MAP = {
+    NEUTRAL: '中立', DEMONHUNTER: '恶魔猎手', DRUID: '德鲁伊', HUNTER: '猎人',
+    MAGE: '法师', PALADIN: '圣骑士', PRIEST: '牧师', ROGUE: '潜行者',
+    SHAMAN: '萨满', WARLOCK: '术士', WARRIOR: '战士', DEATHKNIGHT: '死亡骑士'
+  };
+  const TYPE_MAP = { MINION: '随从', SPELL: '法术', WEAPON: '武器', HERO: '英雄牌', LOCATION: '地标' };
+  const RARITY_MAP = { COMMON: '普通', RARE: '稀有', EPIC: '史诗', LEGENDARY: '传说', FREE: '免费' };
+
+  let allCards = [];
+  let filteredCards = [];
+  let currentPage = 1;
+  const PER_PAGE = 30;
+  let cardsLoaded = false;
+
+  const classOrder = ['ALL','NEUTRAL','DEMONHUNTER','DRUID','HUNTER','MAGE','PALADIN','PRIEST','ROGUE','SHAMAN','WARLOCK','WARRIOR','DEATHKNIGHT'];
+
+  // Build class filter buttons
+  classOrder.forEach(cls => {
+    const btn = document.createElement('button');
+    btn.className = 'cards-filter-btn' + (cls === 'ALL' ? ' active' : '');
+    btn.dataset.filter = cls;
+    btn.textContent = cls === 'ALL' ? '全部' : (CLASS_MAP[cls] || cls);
+    classFilters.appendChild(btn);
+  });
+
+  // Build cost filter options
+  for (let i = 0; i <= 9; i++) {
+    const opt = document.createElement('option');
+    opt.value = i; opt.textContent = i + ' 费';
+    costFilter.appendChild(opt);
+  }
+  const opt10 = document.createElement('option');
+  opt10.value = '10+'; opt10.textContent = '10+ 费';
+  costFilter.appendChild(opt10);
+
+  function getCardClass(c) { return c.cardClass || 'NEUTRAL'; }
+
+  function applyFilters() {
+    const cls = document.querySelector('#classFilters .cards-filter-btn.active')?.dataset?.filter || 'ALL';
+    const type = typeFilter.value;
+    const rarity = rarityFilter.value;
+    const cost = costFilter.value;
+    const query = cardSearch.value.trim().toLowerCase();
+
+    filteredCards = allCards.filter(c => {
+      if (cls !== 'ALL' && getCardClass(c) !== cls) return false;
+      if (type !== 'ALL' && c.type !== type) return false;
+      if (rarity !== 'ALL' && c.rarity !== rarity) return false;
+      if (cost !== 'ALL') {
+        if (cost === '10+') { if ((c.cost || 0) < 10) return false; }
+        else { if (c.cost !== parseInt(cost)) return false; }
+      }
+      if (query && !(c.name || '').toLowerCase().includes(query) && !(c.text || '').toLowerCase().includes(query)) return false;
+      return true;
+    });
+    currentPage = 1;
+    renderPage();
+  }
+
+  function renderPage() {
+    const totalPages = Math.ceil(filteredCards.length / PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PER_PAGE;
+    const pageCards = filteredCards.slice(start, start + PER_PAGE);
+
+    cardsGrid.innerHTML = pageCards.map(c => {
+      const clsName = CLASS_MAP[getCardClass(c)] || '中立';
+      const typeName = TYPE_MAP[c.type] || c.type;
+      const rarityName = RARITY_MAP[c.rarity] || c.rarity;
+      const stats = c.type === 'MINION' ? ` ${c.attack || 0}/${c.health || 0}` : (c.type === 'WEAPON' ? ` ${c.attack || 0}/${c.health || 0}` : '');
+      const cardImg = `https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/${c.id}.png`;
+
+      return `
+        <div class="card-item">
+          <div class="card-cost-badge">${c.cost ?? '—'}</div>
+          <div class="card-info">
+            <div class="card-name">${c.name || '未知'}</div>
+            <div class="card-type-line">
+              <span class="rarity-${c.rarity}">${rarityName}</span> · ${typeName}${stats} · ${clsName}
+            </div>
+            ${c.text ? `<div class="card-text">${c.text.replace(/\$/g,'')}</div>` : ''}
+            <span class="card-set-tag">${c.set || ''}</span>
+          </div>
+          <div class="card-img-wrap"><img src="${cardImg}" alt="${c.name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        </div>`;
+    }).join('');
+
+    // Pagination controls
+    let pagHTML = '';
+    pagHTML += `<button class="cards-page-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="prev">◀ 上一页</button>`;
+    const maxShow = 7;
+    let startP = Math.max(1, currentPage - 3);
+    let endP = Math.min(totalPages, startP + maxShow - 1);
+    if (endP - startP < maxShow - 1) startP = Math.max(1, endP - maxShow + 1);
+
+    for (let p = startP; p <= endP; p++) {
+      pagHTML += `<button class="cards-page-btn ${p === currentPage ? 'active' : ''}" data-page="${p}">${p}</button>`;
+    }
+    pagHTML += `<button class="cards-page-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="next">下一页 ▶</button>`;
+    pagHTML += `<div class="cards-result-info">共 ${filteredCards.length} 张卡牌 · 第 ${currentPage}/${totalPages} 页</div>`;
+    cardsPagination.innerHTML = pagHTML;
+
+    // Page button events
+    cardsPagination.querySelectorAll('.cards-page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const page = btn.dataset.page;
+        if (page === 'prev') currentPage--;
+        else if (page === 'next') currentPage++;
+        else currentPage = parseInt(page);
+        renderPage();
+        cardsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    cardsGrid.style.display = '';
+  }
+
+  // Load cards data
+  fetch('cards-data.json')
+    .then(r => r.json())
+    .then(data => {
+      allCards = data;
+      filteredCards = [...allCards];
+      cardsLoaded = true;
+      cardsLoading.style.display = 'none';
+      renderPage();
+    })
+    .catch(err => {
+      cardsLoading.textContent = '⚠️ 卡牌数据加载失败，请刷新页面重试。';
+      console.error('Card data load error:', err);
+    });
+
+  // Filter event listeners
+  document.querySelectorAll('#classFilters .cards-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#classFilters .cards-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (cardsLoaded) applyFilters();
+    });
+  });
+
+  typeFilter.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
+  rarityFilter.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
+  costFilter.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
+
+  let searchTimeout;
+  cardSearch.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => { if (cardsLoaded) applyFilters(); }, 300);
+  });
+}
+

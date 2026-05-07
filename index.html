@@ -59,6 +59,7 @@
       <a href="#battlegrounds">酒馆战棋</a>
       <a href="#arena">竞技场</a>
       <a href="#tips">进阶技巧</a>
+      <a href="#cards">卡牌图鉴</a>
       <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换亮色/暗色主题">🌙</button>
     </nav>
   </div>
@@ -384,6 +385,44 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="cards" class="section cards-section">
+  <div class="container">
+    <h2 class="section-title">🃏 卡牌图鉴 <span class="version-tag">7,935张</span></h2>
+    <p class="expansion-intro">按职业、类型、稀有度、费用筛选 · 数据来自 HearthstoneJSON 实时更新</p>
+
+    <div class="cards-controls">
+      <div class="cards-filter-row" id="classFilters">
+        <button class="cards-filter-btn active" data-filter="ALL">全部</button>
+      </div>
+      <div class="cards-filter-row">
+        <select id="typeFilter" class="cards-select">
+          <option value="ALL">全部类型</option>
+          <option value="MINION">随从</option>
+          <option value="SPELL">法术</option>
+          <option value="WEAPON">武器</option>
+          <option value="HERO">英雄牌</option>
+          <option value="LOCATION">地标</option>
+        </select>
+        <select id="rarityFilter" class="cards-select">
+          <option value="ALL">全部稀有度</option>
+          <option value="COMMON">普通</option>
+          <option value="RARE">稀有</option>
+          <option value="EPIC">史诗</option>
+          <option value="LEGENDARY">传说</option>
+        </select>
+        <select id="costFilter" class="cards-select">
+          <option value="ALL">全部费用</option>
+        </select>
+        <input type="text" id="cardSearch" class="cards-search" placeholder="搜索卡牌名称或描述...">
+      </div>
+    </div>
+
+    <div class="cards-loading" id="cardsLoading">🔄 正在加载卡牌数据库...</div>
+    <div class="cards-grid" id="cardsGrid"></div>
+    <div class="cards-pagination" id="cardsPagination"></div>
   </div>
 </section>
 
