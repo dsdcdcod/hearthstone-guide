@@ -71,116 +71,173 @@ const heroes = [
 // ========== Deck Data (2026.05 — 大地的裂变) ==========
 const decks = [
   {
-    name: '兆示萨', cls: '萨满', type: 'combo', tier: 'T1',
+    name: '兆示萨', cls: '萨满', type: 'combo', tier: 'T1', format: 'standard',
     desc: '6费兆示龙→7费死亡之翼返场→风怒刀终结。节奏链极强，高分段最稳定上分选择。',
     dust: '约 8,600 尘', cost: '中',
     cards: '兆示之龙、死亡之翼、风怒刀、海潮之力',
     code: 'AAECAZKrBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
   },
   {
-    name: '法术瞎', cls: '恶魔猎手', type: 'aggro', tier: 'T1',
+    name: '法术瞎', cls: '恶魔猎手', type: 'aggro', tier: 'T1', format: 'standard',
     desc: '海洋咒符+布洛克斯加奋战+双地标体系。对多数卡组优势，黄金赛验证竞技强度。',
     dust: '约 7,200 尘', cost: '中',
     cards: '海洋咒符、布洛克斯·亡刃、邪能地标、残片震击',
     code: 'AAECAZDdAwTn9QXHpAbEuAbBwQYNlugFhaoG/q4GprMG7b4GxNEG1NEGpdIGotYGm9kGvOEG4OIGAAA='
   },
   {
-    name: '兆示龙战', cls: '战士', type: 'midrange', tier: 'T1',
+    name: '兆示龙战', cls: '战士', type: 'midrange', tier: 'T1', format: 'standard',
     desc: '战士最强形态，按费拍怪+兆示联动+龙族BUFF，57.6%胜率。',
     dust: '约 11,400 尘', cost: '高',
     cards: '拉格纳罗斯·绝世烈火、末世特使、龙息烈焰',
     code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
   },
   {
-    name: '打脸法', cls: '法师', type: 'aggro', tier: 'T1',
+    name: '打脸法', cls: '法师', type: 'aggro', tier: 'T1', format: 'standard',
     desc: '极致快攻，高效过牌+海量直伤，59.4%胜率冠绝。7费前终结比赛。',
     dust: '约 4,800 尘', cost: '低',
     cards: '炎爆术、冰枪术、火球术、大法师安东尼',
     code: 'AAECAf0EBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   {
-    name: '结束骑(光环骑)', cls: '圣骑士', type: 'midrange', tier: 'T1',
+    name: '结束骑(光环骑)', cls: '圣骑士', type: 'midrange', tier: 'T1', format: 'standard',
     desc: '版本答案！低费站场→光环BUFF滚雪球→终极一波，62.3%胜率领跑。',
     dust: '约 14,700 尘', cost: '高',
     cards: '光铸凯尔萨斯、光环护盾、龙骑之誓、克洛玛图斯',
     code: 'AAECAZ8FBITgBY3OBYCuBt++Bg2cnwTunwTQpAW9pwXR+AXVngbCngafoAaroAavqAbRrAbPvQYAAA=='
   },
   {
-    name: '彩虹DK', cls: '死亡骑士', type: 'control', tier: 'T2',
+    name: '彩虹DK', cls: '死亡骑士', type: 'control', tier: 'T2', format: 'standard',
     desc: '三色符文灵活应对所有对局，吸血光环+大量解牌让快攻绝望。国际服S级。',
     dust: '约 9,800 尘', cost: '高',
     cards: '吸血光环、帕奇维克、血虫感染、冰霜巨龙',
     code: 'AAECAfHhBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
   },
   {
-    name: '控制战', cls: '战士', type: 'control', tier: 'T2',
+    name: '控制战', cls: '战士', type: 'control', tier: 'T2', format: 'standard',
     desc: '叠最厚的甲，解最多的场。后期靠绝命乱斗清场后反杀，打不死的小强。',
     dust: '约 10,800 尘', cost: '高',
     cards: '绝命乱斗、奥丁、裂盾一击、盾牌猛击',
     code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
   },
   {
-    name: '树人德', cls: '德鲁伊', type: 'aggro', tier: 'T2',
+    name: '树人德', cls: '德鲁伊', type: 'aggro', tier: 'T2', format: 'standard',
     desc: '快速跳费→铺场树人海→群体BUFF带走。造价低廉，新手友好。',
     dust: '约 3,200 尘', cost: '低',
     cards: '树人召唤、丛林之魂、自然之力、古夫·符文图腾',
     code: 'AAECAZICBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   {
-    name: '兆示蛋术', cls: '术士', type: 'combo', tier: 'T2',
+    name: '兆示蛋术', cls: '术士', type: 'combo', tier: 'T2', format: 'standard',
     desc: '兆示关键词联动，单卡爆发力极强。自残过牌→兆示组件→OTK斩杀。',
     dust: '约 8,200 尘', cost: '中',
     cards: '兆示之卵、暗影华尔兹、黑眼、痛苦诅咒',
     code: 'AAECAf0GBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   {
-    name: '自然萨', cls: '萨满', type: 'aggro', tier: 'T2',
+    name: '自然萨', cls: '萨满', type: 'aggro', tier: 'T2', format: 'standard',
     desc: '低费自然法术+元素联动快速铺场。55%胜率，传奇分段热门之选。',
     dust: '约 3,800 尘', cost: '低',
     cards: '闪电箭、图腾巨像、自然之怒、熔岩爆裂',
     code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
   },
   {
-    name: '法术法', cls: '法师', type: 'midrange', tier: 'T2',
+    name: '法术法', cls: '法师', type: 'midrange', tier: 'T2', format: 'standard',
     desc: '法术联动+强力AOE清场+后期大法师爆发。元素体系提供稳定过牌。',
     dust: '约 7,600 尘', cost: '中',
     cards: '流水元素、元素唤醒、炎爆术、大法师安东尼',
     code: 'AAECAf0EBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   {
-    name: '纯净骑', cls: '圣骑士', type: 'midrange', tier: 'T2',
+    name: '纯净骑', cls: '圣骑士', type: 'midrange', tier: 'T2', format: 'standard',
     desc: '纯职业卡联动、光环BUFF体系滚雪球。无中立卡触发强力职业加成。',
     dust: '约 6,400 尘', cost: '中',
     cards: '光铸远征军、青铜龙、龙息烈焰、时光探险者',
     code: 'AAECAZ8FBITgBY3OBYCuBt++Bg2cnwTunwTQpAW9pwXR+AXVngbCngafoAaroAavqAbRrAbPvQYAAA=='
   },
   {
-    name: '野兽猎', cls: '猎人', type: 'aggro', tier: 'T2',
+    name: '野兽猎', cls: '猎人', type: 'aggro', tier: 'T2', format: 'standard',
     desc: '蓝白构筑极致性价比，简单粗暴打脸。新手上分首选，只需一张免费传说。',
     dust: '约 2,400 尘', cost: '低',
     cards: '杀戮命令、动物伙伴、暴龙王、快速射击',
     code: 'AAECAR8Cx6QG5OQGDoagBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BqDIBq7IBrDIBvDKBgAA'
   },
   {
-    name: '龙战(吼爹版)', cls: '战士', type: 'midrange', tier: 'T2',
+    name: '龙战(吼爹版)', cls: '战士', type: 'midrange', tier: 'T2', format: 'standard',
     desc: '全蓝白仅1橙！56.2%胜率（7128场），按费拍怪节奏清晰，新手入坑首选。',
     dust: '约 3,600 尘', cost: '低',
     cards: '格罗玛什·地狱咆哮、龙匠、奥金斧、库卡隆精英',
     code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
   },
   {
-    name: '控制牧', cls: '牧师', type: 'control', tier: 'T3',
+    name: '控制牧', cls: '牧师', type: 'control', tier: 'T3', format: 'standard',
     desc: '海量解牌和回复，偷牌耗资源，持久战天花板。造价昂贵但体验独特。',
     dust: '约 12,000 尘', cost: '高',
     cards: '暗言术·毁、灵魂之镜、窃取、暗影精华',
     code: 'AAECAZKrBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
   },
   {
-    name: '机械贼', cls: '潜行者', type: 'midrange', tier: 'T3',
+    name: '机械贼', cls: '潜行者', type: 'midrange', tier: 'T3', format: 'standard',
     desc: '机械亡语联动，场面无限续杯。56%胜率，特定对局中有奇效。',
     dust: '约 5,800 尘', cost: '中',
     cards: '机械龙、钩镰弯刀、钢铁舞者、齿轮大师',
     code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEhPYEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+  },
+  // ========== 狂野模式 ==========
+  {
+    name: '任务术(恶魔之种)', cls: '术士', type: 'combo', tier: 'T1', format: 'wild',
+    desc: '狂野霸主！集铺场、控制、OTK于一体。术士出场率超60%，该卡组是定义环境的核心。',
+    dust: '约 9,600 尘', cost: '高',
+    cards: '恶魔之种、黑暗之门、塔姆辛·罗姆、暗影华尔兹',
+    code: 'AAECAf0GBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+  },
+  {
+    name: '海盗烧树贼', cls: '潜行者', type: 'aggro', tier: 'T1', format: 'wild',
+    desc: '60%+胜率（3000+场）！前期海盗站场+武器抢血，下限极高，狂野最稳定上分选择。',
+    dust: '约 5,200 尘', cost: '中',
+    cards: '海盗帕奇斯、钩镰弯刀、船载火炮、烧树符文',
+    code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEhPYEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+  },
+  {
+    name: '全聚德', cls: '德鲁伊', type: 'combo', tier: 'T1', format: 'wild',
+    desc: '巴内斯体系加入后强度登顶！快速跳费→高费传说一波压死，抗性极强。',
+    dust: '约 13,000 尘', cost: '高',
+    cards: '巴内斯、古夫·符文图腾、优胜劣汰、塞纳留斯',
+    code: 'AAECAZICBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+  },
+  {
+    name: '号角骑', cls: '圣骑士', type: 'aggro', tier: 'T1', format: 'wild',
+    desc: '战斗号角快速铺场+光环BUFF滚雪球，新晋狂野热门。低费展开能力极强。',
+    dust: '约 7,400 尘', cost: '中',
+    cards: '战斗号角、光铸凯尔萨斯、光环护盾、龙骑之誓',
+    code: 'AAECAZ8FBITgBY3OBYCuBt++Bg2cnwTunwTQpAW9pwXR+AXVngbCngafoAaroAavqAbRrAbPvQYAAA=='
+  },
+  {
+    name: '宇宙任务法', cls: '法师', type: 'combo', tier: 'T1', format: 'wild',
+    desc: '55.5%胜率（4169场）！无限火球OTK，上限极高。宇宙体系灵活应对各种对局。',
+    dust: '约 11,800 尘', cost: '高',
+    cards: '打开时空之门、大法师安东尼、寒冰屏障、卡雷苟斯',
+    code: 'AAECAf0EBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+  },
+  {
+    name: '海盗战', cls: '战士', type: 'aggro', tier: 'T2', format: 'wild',
+    desc: '回归经典快攻！低费海盗+武器+冲锋，63%胜率简单粗暴。最适合新手入狂野。',
+    dust: '约 4,400 尘', cost: '低',
+    cards: '海盗帕奇斯、库卡隆精英、奥金斧、血帆教徒',
+    code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
+  },
+  {
+    name: '偶数萨', cls: '萨满', type: 'aggro', tier: 'T2', format: 'wild',
+    desc: '吉恩·格雷迈恩体系，1费英雄技能→偶数随从铺场。稳定性极高，低保首选。',
+    dust: '约 5,600 尘', cost: '中',
+    cards: '吉恩·格雷迈恩、图腾巨像、海潮之力、风怒刀',
+    code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEhPYEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+  },
+  {
+    name: '宇宙猎', cls: '猎人', type: 'midrange', tier: 'T2', format: 'wild',
+    desc: '兽王/节奏两种构筑，8费30-40血斩杀。宇宙体系+野兽联动，控场斩杀兼具。',
+    dust: '约 10,200 尘', cost: '高',
+    cards: '兽王雷克萨、暴龙王、动物伙伴、杀戮命令',
+    code: 'AAECAR8Cx6QG5OQGDoagBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BqDIBq7IBrDIBvDKBgAA'
   }
 ];
 
@@ -214,9 +271,16 @@ heroes.forEach(hero => {
 const decksGrid = document.getElementById('decksGrid');
 if (!decksGrid) { console.warn('decksGrid element not found'); } else {
 
-function renderDecks(filter) {
+let currentDeckFormat = 'all';
+let currentDeckType = 'all';
+
+function renderDecks() {
   decksGrid.innerHTML = '';
-  const filtered = filter === 'all' ? decks : decks.filter(d => d.type === filter);
+  const filtered = decks.filter(d => {
+    if (currentDeckFormat !== 'all' && d.format !== currentDeckFormat) return false;
+    if (currentDeckType !== 'all' && d.type !== currentDeckType) return false;
+    return true;
+  });
 
   filtered.forEach(deck => {
     const card = document.createElement('div');
@@ -258,14 +322,25 @@ function getTypeLabel(type) {
   return labels[type] || type;
 }
 
-renderDecks('all');
+renderDecks();
 
-// ========== Deck Filter ==========
-document.querySelectorAll('.filter-btn').forEach(btn => {
+// ========== Deck Filter (Format) ==========
+document.querySelectorAll('.format-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    renderDecks(btn.dataset.filter);
+    currentDeckFormat = btn.dataset.format;
+    renderDecks();
+  });
+});
+
+// ========== Deck Filter (Type) ==========
+document.querySelectorAll('.filter-btn:not(.format-btn)').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn:not(.format-btn)').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDeckType = btn.dataset.filter;
+    renderDecks();
   });
 });
 
@@ -278,13 +353,20 @@ const compareSlot2 = document.getElementById('compareSlot2');
 if (compareToggle && comparePanel && compareSlot1 && compareSlot2) {
   let compareMode = false;
   let selectedDecks = [];
-  let currentFilter = 'all';
+
+  function getVisibleDecks() {
+    return decks.filter(d => {
+      if (currentDeckFormat !== 'all' && d.format !== currentDeckFormat) return false;
+      if (currentDeckType !== 'all' && d.type !== currentDeckType) return false;
+      return true;
+    });
+  }
 
   function updateCompareSlots() {
     [compareSlot1, compareSlot2].forEach((slot, i) => {
       if (selectedDecks[i]) {
         const d = selectedDecks[i];
-        slot.innerHTML = `<h4>${d.name}</h4><p>${d.cls} · ${getTypeLabel(d.type)} · ${d.tier}</p><p class="compare-dust">${d.dust}</p><p class="compare-cards">核心：${d.cards}</p>`;
+        slot.innerHTML = `<h4>${d.name}</h4><p>${d.cls} · ${getTypeLabel(d.type)} · ${d.tier} · ${d.format === 'standard' ? '标准' : '狂野'}</p><p class="compare-dust">${d.dust}</p><p class="compare-cards">核心：${d.cards}</p>`;
       } else {
         slot.innerHTML = `<span class="compare-placeholder">选择第${i + 1}个卡组</span>`;
       }
@@ -292,7 +374,7 @@ if (compareToggle && comparePanel && compareSlot1 && compareSlot2) {
   }
 
   function applyCompareModeToCards() {
-    const filtered = currentFilter === 'all' ? decks : decks.filter(d => d.type === currentFilter);
+    const visible = getVisibleDecks();
     document.querySelectorAll('.deck-card').forEach((card, i) => {
       card.classList.add('compare-mode');
       if (!card.querySelector('.compare-check')) {
@@ -301,7 +383,7 @@ if (compareToggle && comparePanel && compareSlot1 && compareSlot2) {
         checkbox.className = 'compare-check';
         card.appendChild(checkbox);
       }
-      const deckData = filtered[i];
+      const deckData = visible[i];
       if (deckData && selectedDecks.some(d => d.name === deckData.name)) {
         card.classList.add('compare-selected');
       }
@@ -339,9 +421,8 @@ if (compareToggle && comparePanel && compareSlot1 && compareSlot2) {
   });
 
   const origRenderDecks = renderDecks;
-  renderDecks = function(filter) {
-    currentFilter = filter;
-    origRenderDecks(filter);
+  renderDecks = function() {
+    origRenderDecks();
     if (compareMode) {
       applyCompareModeToCards();
     }
