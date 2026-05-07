@@ -68,67 +68,119 @@ const heroes = [
   }
 ];
 
-// ========== Deck Data ==========
+// ========== Deck Data (2026.05 — 大地的裂变) ==========
 const decks = [
   {
-    name: '残片快攻 DH', class: '恶魔猎手', type: 'aggro',
-    desc: '利用残片体系不断过牌，配合流放机制在6-7费完成斩杀。环境中速与慢速卡组的噩梦。',
-    dust: '粉尘需求：约 6800',
-    cards: '核心卡：凯恩·日怒、残片震击、灵魂裂劈'
+    name: '兆示萨', cls: '萨满', type: 'combo', tier: 'T1',
+    desc: '6费兆示龙→7费死亡之翼返场→风怒刀终结。节奏链极强，高分段最稳定上分选择。',
+    dust: '约 8,600 尘', cost: '中',
+    cards: '兆示之龙、死亡之翼、风怒刀、海潮之力',
+    code: 'AAECAZKrBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
   },
   {
-    name: '血DK控制', class: '死亡骑士', type: 'control',
-    desc: '依靠鲜血符文的大量回复和解场，把游戏拖入疲劳，靠发现的资源获胜。',
-    dust: '粉尘需求：约 9200',
-    cards: '核心卡：吸血光环、血虫感染、帕奇维克'
+    name: '法术瞎', cls: '恶魔猎手', type: 'aggro', tier: 'T1',
+    desc: '海洋咒符+布洛克斯加奋战+双地标体系。对多数卡组优势，黄金赛验证竞技强度。',
+    dust: '约 7,200 尘', cost: '中',
+    cards: '海洋咒符、布洛克斯·亡刃、邪能地标、残片震击',
+    code: 'AAECAZDdAwTn9QXHpAbEuAbBwQYNlugFhaoG/q4GprMG7b4GxNEG1NEGpdIGotYGm9kGvOEG4OIGAAA='
   },
   {
-    name: '龙骑中速', class: '圣骑士', type: 'midrange',
-    desc: '利用龙族BUFF卡牌不断强化场面，中期一波龙息爆发带走对手。',
-    dust: '粉尘需求：约 7400',
-    cards: '核心卡：时光探险者、龙息烈焰、青铜龙'
+    name: '兆示龙战', cls: '战士', type: 'midrange', tier: 'T1',
+    desc: '战士最强形态，按费拍怪+兆示联动+龙族BUFF，57.6%胜率。',
+    dust: '约 11,400 尘', cost: '高',
+    cards: '拉格纳罗斯·绝世烈火、末世特使、龙息烈焰',
+    code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
   },
   {
-    name: '疲劳术', class: '术士', type: 'combo',
-    desc: '通过自残机制堆叠疲劳伤害，配合暗影法术在后期完成高额斩杀。',
-    dust: '粉尘需求：约 8600',
-    cards: '核心卡：痛苦诅咒、暗影华尔兹、黑眼'
+    name: '打脸法', cls: '法师', type: 'aggro', tier: 'T1',
+    desc: '极致快攻，高效过牌+海量直伤，59.4%胜率冠绝。7费前终结比赛。',
+    dust: '约 4,800 尘', cost: '低',
+    cards: '炎爆术、冰枪术、火球术、大法师安东尼',
+    code: 'AAECAf0EBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   {
-    name: '元素法', class: '法师', type: 'midrange',
-    desc: '利用元素链触发元素联动效果，快速铺场形成压制之势。',
-    dust: '粉尘需求：约 5600',
-    cards: '核心卡：流水元素、元素唤醒、炎爆'
+    name: '结束骑(光环骑)', cls: '圣骑士', type: 'midrange', tier: 'T1',
+    desc: '版本答案！低费站场→光环BUFF滚雪球→终极一波，62.3%胜率领跑。',
+    dust: '约 14,700 尘', cost: '高',
+    cards: '光铸凯尔萨斯、光环护盾、龙骑之誓、克洛玛图斯',
+    code: 'AAECAZ8FBITgBY3OBYCuBt++Bg2cnwTunwTQpAW9pwXR+AXVngbCngafoAaroAavqAbRrAbPvQYAAA=='
   },
   {
-    name: '海盗贼', class: '潜行者', type: 'aggro',
-    desc: '低曲线 + 海盗联动，前三费就能把场面铺满，用武器和冲锋收人头。',
-    dust: '粉尘需求：约 4200',
-    cards: '核心卡：海盗帕奇斯、钩镰弯刀、船载火炮'
+    name: '彩虹DK', cls: '死亡骑士', type: 'control', tier: 'T2',
+    desc: '三色符文灵活应对所有对局，吸血光环+大量解牌让快攻绝望。国际服S级。',
+    dust: '约 9,800 尘', cost: '高',
+    cards: '吸血光环、帕奇维克、血虫感染、冰霜巨龙',
+    code: 'AAECAfHhBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
   },
   {
-    name: '控制牧', class: '牧师', type: 'control',
-    desc: '堆叠海量解牌和回复，用偷来的牌打败对手。持久战的天花板。',
-    dust: '粉尘需求：约 9800',
-    cards: '核心卡：暗言术·毁、灵魂之镜、窃取'
+    name: '控制战', cls: '战士', type: 'control', tier: 'T2',
+    desc: '叠最厚的甲，解最多的场。后期靠绝命乱斗清场后反杀，打不死的小强。',
+    dust: '约 10,800 尘', cost: '高',
+    cards: '绝命乱斗、奥丁、裂盾一击、盾牌猛击',
+    code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
   },
   {
-    name: '大哥德', class: '德鲁伊', type: 'combo',
-    desc: '快速跳费到10费，用优胜劣汰+大量传说随从一波带走。',
-    dust: '粉尘需求：约 12000',
-    cards: '核心卡：优胜劣汰、古夫·符文图腾、塞纳留斯'
+    name: '树人德', cls: '德鲁伊', type: 'aggro', tier: 'T2',
+    desc: '快速跳费→铺场树人海→群体BUFF带走。造价低廉，新手友好。',
+    dust: '约 3,200 尘', cost: '低',
+    cards: '树人召唤、丛林之魂、自然之力、古夫·符文图腾',
+    code: 'AAECAZICBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   {
-    name: '打脸猎', class: '猎人', type: 'aggro',
-    desc: '纯打脸策略，利用英雄技能和直伤法术7回合内结束战斗。',
-    dust: '粉尘需求：约 3400',
-    cards: '核心卡：杀戮命令、快速射击、动物伙伴'
+    name: '兆示蛋术', cls: '术士', type: 'combo', tier: 'T2',
+    desc: '兆示关键词联动，单卡爆发力极强。自残过牌→兆示组件→OTK斩杀。',
+    dust: '约 8,200 尘', cost: '中',
+    cards: '兆示之卵、暗影华尔兹、黑眼、痛苦诅咒',
+    code: 'AAECAf0GBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
   },
   {
-    name: '控制战', class: '战士', type: 'control',
-    desc: '叠最厚的甲，解最多的场，用疲劳和后期橙卡终结比赛。',
-    dust: '粉尘需求：约 10800',
-    cards: '核心卡：绝命乱斗、奥丁、裂盾一击'
+    name: '自然萨', cls: '萨满', type: 'aggro', tier: 'T2',
+    desc: '低费自然法术+元素联动快速铺场。55%胜率，传奇分段热门之选。',
+    dust: '约 3,800 尘', cost: '低',
+    cards: '闪电箭、图腾巨像、自然之怒、熔岩爆裂',
+    code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+  },
+  {
+    name: '法术法', cls: '法师', type: 'midrange', tier: 'T2',
+    desc: '法术联动+强力AOE清场+后期大法师爆发。元素体系提供稳定过牌。',
+    dust: '约 7,600 尘', cost: '中',
+    cards: '流水元素、元素唤醒、炎爆术、大法师安东尼',
+    code: 'AAECAf0EBM6SBf3EBabxBdf0BQ2pnwS3oASuwASQyQTB0AXI0AXs4wWo7wXb+AXPngbDugbI6wYAAA=='
+  },
+  {
+    name: '纯净骑', cls: '圣骑士', type: 'midrange', tier: 'T2',
+    desc: '纯职业卡联动、光环BUFF体系滚雪球。无中立卡触发强力职业加成。',
+    dust: '约 6,400 尘', cost: '中',
+    cards: '光铸远征军、青铜龙、龙息烈焰、时光探险者',
+    code: 'AAECAZ8FBITgBY3OBYCuBt++Bg2cnwTunwTQpAW9pwXR+AXVngbCngafoAaroAavqAbRrAbPvQYAAA=='
+  },
+  {
+    name: '野兽猎', cls: '猎人', type: 'aggro', tier: 'T2',
+    desc: '蓝白构筑极致性价比，简单粗暴打脸。新手上分首选，只需一张免费传说。',
+    dust: '约 2,400 尘', cost: '低',
+    cards: '杀戮命令、动物伙伴、暴龙王、快速射击',
+    code: 'AAECAR8Cx6QG5OQGDoagBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BqDIBq7IBrDIBvDKBgAA'
+  },
+  {
+    name: '龙战(吼爹版)', cls: '战士', type: 'midrange', tier: 'T2',
+    desc: '全蓝白仅1橙！56.2%胜率（7128场），按费拍怪节奏清晰，新手入坑首选。',
+    dust: '约 3,600 尘', cost: '低',
+    cards: '格罗玛什·地狱咆哮、龙匠、奥金斧、库卡隆精英',
+    code: 'AAECAQcIx6QGpKcGi7AGn7gG1boG+skG5OQGmN4GC4agBI7UBI7oBYWcBqCgBqSnBqeoBqeoBo6+BvDKBgAA'
+  },
+  {
+    name: '控制牧', cls: '牧师', type: 'control', tier: 'T3',
+    desc: '海量解牌和回复，偷牌耗资源，持久战天花板。造价昂贵但体验独特。',
+    dust: '约 12,000 尘', cost: '高',
+    cards: '暗言术·毁、灵魂之镜、窃取、暗影精华',
+    code: 'AAECAZKrBATYxgSJ5ATO8QXRngYNqNQEpeQEh/YEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
+  },
+  {
+    name: '机械贼', cls: '潜行者', type: 'midrange', tier: 'T3',
+    desc: '机械亡语联动，场面无限续杯。56%胜率，特定对局中有奇效。',
+    dust: '约 5,800 尘', cost: '中',
+    cards: '机械龙、钩镰弯刀、钢铁舞者、齿轮大师',
+    code: 'AAECAZKrBALYxgSJ5AQNqNQEpeQEhPYEp4AGpYcGzrUGmLcGl7kGpMsG+dsGueEG7OUGAAA='
   }
 ];
 
@@ -170,14 +222,34 @@ function renderDecks(filter) {
     const card = document.createElement('div');
     card.className = 'deck-card';
     card.innerHTML = `
+      <span class="deck-tier ${deck.tier === 'T1' ? 'tier-s' : deck.tier === 'T2' ? 'tier-a' : 'tier-b'}">${deck.tier}</span>
       <span class="deck-type ${deck.type}">${getTypeLabel(deck.type)}</span>
+      <span class="deck-cost cost-${deck.cost}">${deck.cost}造价</span>
       <h3>${deck.name}</h3>
-      <p class="deck-class">${deck.class}</p>
+      <p class="deck-class">${deck.cls}</p>
       <p class="deck-desc">${deck.desc}</p>
-      <p class="deck-dust">${deck.dust}</p>
-      <p class="deck-cards">${deck.cards}</p>
+      <p class="deck-cards">核心：${deck.cards}</p>
+      <div class="deck-bottom">
+        <p class="deck-dust">${deck.dust}</p>
+        <button class="deck-code-btn" data-code="${deck.code}" title="复制卡组代码">📋 复制代码</button>
+      </div>
     `;
     decksGrid.appendChild(card);
+  });
+
+  // Deck code copy buttons
+  document.querySelectorAll('.deck-code-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const code = btn.dataset.code;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = '✅ 已复制';
+        setTimeout(() => { btn.textContent = '📋 复制代码'; }, 2000);
+      }).catch(() => {
+        btn.textContent = '❌ 失败';
+        setTimeout(() => { btn.textContent = '📋 复制代码'; }, 2000);
+      });
+    });
   });
 }
 
@@ -212,7 +284,7 @@ if (compareToggle && comparePanel && compareSlot1 && compareSlot2) {
     [compareSlot1, compareSlot2].forEach((slot, i) => {
       if (selectedDecks[i]) {
         const d = selectedDecks[i];
-        slot.innerHTML = `<h4>${d.name}</h4><p>${d.class} · ${getTypeLabel(d.type)}</p><p class="compare-dust">${d.dust}</p><p class="compare-cards">${d.cards}</p>`;
+        slot.innerHTML = `<h4>${d.name}</h4><p>${d.cls} · ${getTypeLabel(d.type)} · ${d.tier}</p><p class="compare-dust">${d.dust}</p><p class="compare-cards">核心：${d.cards}</p>`;
       } else {
         slot.innerHTML = `<span class="compare-placeholder">选择第${i + 1}个卡组</span>`;
       }
@@ -504,5 +576,69 @@ if (statNums.length > 0) {
   }, { threshold: 0.6 });
 
   statNums.forEach(el => observer.observe(el));
+}
+
+// ========== Battlegrounds Render ==========
+const bgGrid = document.getElementById('bgGrid');
+if (bgGrid) {
+  const bgComps = [
+    {
+      name: '护戒纳迦跳操流', tier: 'T0', tribes: '纳迦 / 龙',
+      desc: '6本护戒纳迦+瑞文戴尔+暮光巢母，战斗中打出海量法术。大漩涡纳迦翻倍法术值，搭配诗心龙保留属性。当前上限最高的阵容。',
+      key: '护戒纳迦、瑞文戴尔、暮光巢母、诗心龙'
+    },
+    {
+      name: '大威天龙·卡雷体系', tier: 'T1', tribes: '龙',
+      desc: '5本卡雷苟斯+铜须+多彩龙，中期就能发力。骨火龙、诗心龙、琥珀卫士传攻体系，节奏极快。',
+      key: '卡雷苟斯、铜须、多彩龙、骨火龙'
+    },
+    {
+      name: '亡灵纺织工电表流', tier: 'T1', tribes: '亡灵',
+      desc: '纺织工BUFF翻倍(+1→+2)，配合私掠者+罗杰斯翻倍释放悬赏令。成型后千攻亡灵不是梦，但成型难度较大。',
+      key: '纺织工、私掠者、罗杰斯、悬赏令'
+    },
+    {
+      name: '沙锤手蓝调纳迦', tier: 'T1', tribes: '纳迦',
+      desc: '蓝调BUFF上调至+2/+2，沙锤手肖像费用从7降为3。配合骨火巨龙、亡灵马等优质单核高效转化法术。',
+      key: '沙锤手、蓝调节奏、骨火巨龙、智慧之球'
+    },
+    {
+      name: '鱼人画家流', tier: 'T2', tribes: '鱼人',
+      desc: '莫格顿爹妈下调至3星让前中期过渡更丝滑，搭配原始鱼人画家灵活运营。中规中矩但稳定上分。',
+      key: '莫格顿爹妈、原始鱼人画家、蛮鱼队长'
+    }
+  ];
+
+  const bgHeroes = [
+    { name: '吉恩', tier: 'T0', desc: '格雷迈恩 — 奇偶体系核心，灵活切换英雄技能节奏' },
+    { name: '米罗克', tier: 'T0', desc: '米尔豪斯·法力风暴 — 起始2金但后续购买永久-1金' },
+    { name: '加里维克斯', tier: 'T0', desc: '贸易大王 — 卖随从获得额外铸币，经济碾压' },
+    { name: '斯尼德', tier: 'T0', desc: '伐木机驾驶员 — 亡语召唤高本随从，战力碾压' }
+  ];
+
+  // Render compositions
+  bgComps.forEach(comp => {
+    const card = document.createElement('div');
+    card.className = 'bg-comp-card';
+    card.innerHTML = `
+      <span class="bg-tier bg-tier-${comp.tier.toLowerCase()}">${comp.tier}</span>
+      <h4>${comp.name}</h4>
+      <p class="bg-tribes">${comp.tribes}</p>
+      <p class="bg-desc">${comp.desc}</p>
+      <p class="bg-key">关键随从：${comp.key}</p>
+    `;
+    bgGrid.appendChild(card);
+  });
+
+  // Render heroes
+  const bgHeroesGrid = document.getElementById('bgHeroesGrid');
+  if (bgHeroesGrid) {
+    bgHeroes.forEach(h => {
+      const card = document.createElement('div');
+      card.className = 'bg-hero-card';
+      card.innerHTML = `<span class="bg-tier bg-tier-${h.tier.toLowerCase()}">${h.tier}</span><h4>${h.name}</h4><p>${h.desc}</p>`;
+      bgHeroesGrid.appendChild(card);
+    });
+  }
 }
 

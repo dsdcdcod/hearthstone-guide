@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="炉石传说全方位攻略站，涵盖当前环境分析、11职业攻略、热门卡组推荐、新手入门指南与进阶技巧。从青铜到传说，助你登顶。">
+  <meta name="description" content="炉石传说全方位攻略站 — 大地的裂变版本：环境速览、扩展包详解、11职业攻略、16套卡组推荐(含代码)、酒馆战棋、竞技场、新手入门与进阶技巧。从青铜到传说，助你登顶。">
   <meta property="og:title" content="炉石传说攻略站 - 从入门到传说">
-  <meta property="og:description" content="全方位策略指南：环境速览、职业攻略、卡组推荐、新手入门与进阶技巧。">
+  <meta property="og:description" content="大地的裂变版本攻略：环境速览、扩展包详解、11职业、16套卡组(含代码)、酒馆战棋、竞技场、新手入门与进阶技巧。">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://dsdcdcod.github.io/hearthstone-guide/og-image.svg">
   <meta property="og:image:width" content="1200">
@@ -29,10 +29,13 @@
       "gamePlatform": ["PC", "Mobile"]
     },
     "hasPart": [
-      { "@type": "Article", "name": "当前环境速览", "description": "T1/T2职业胜率分析" },
+      { "@type": "Article", "name": "当前环境速览", "description": "大地的裂变版本T1职业胜率分析" },
+      { "@type": "Article", "name": "扩展包介绍", "description": "大地的裂变：兆示、裂变、巨型回归机制详解" },
       { "@type": "Article", "name": "职业攻略", "description": "11职业英雄技能与玩法详解" },
-      { "@type": "Article", "name": "热门卡组推荐", "description": "快攻、中速、控制、组合技卡组推荐" },
-      { "@type": "Article", "name": "新手入门指南", "description": "从基础规则到爬天梯策略" },
+      { "@type": "Article", "name": "热门卡组推荐", "description": "16套当前版本卡组，含造价与卡组代码" },
+      { "@type": "Article", "name": "新手入门指南", "description": "学徒路线、基础规则、零充上分、天梯策略" },
+      { "@type": "Article", "name": "酒馆战棋", "description": "第13赛季最强流派与T0英雄" },
+      { "@type": "Article", "name": "竞技场", "description": "2026重制版双模式攻略" },
       { "@type": "Article", "name": "进阶技巧", "description": "资源管理、读牌预判、卡组构筑、概率分析" }
     ]
   }
@@ -49,9 +52,12 @@
     <p class="subtitle">从新手到传说 · 全方位策略指南</p>
     <nav class="nav-bar">
       <a href="#meta">当前环境</a>
+      <a href="#expansion">扩展包</a>
       <a href="#heroes">职业攻略</a>
       <a href="#decks">卡组推荐</a>
       <a href="#beginner">新手入门</a>
+      <a href="#battlegrounds">酒馆战棋</a>
+      <a href="#arena">竞技场</a>
       <a href="#tips">进阶技巧</a>
       <button class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换亮色/暗色主题">🌙</button>
     </nav>
@@ -72,32 +78,64 @@
 
 <section id="meta" class="section meta-section">
   <div class="container">
-    <h2 class="section-title">📊 当前环境 (Meta) 速览</h2>
+    <h2 class="section-title">📊 当前环境 (Meta) 速览 <span class="version-tag">大地的裂变 · 2026.05</span></h2>
     <div class="meta-grid">
       <div class="meta-card tier-s">
         <span class="tier-badge">T1</span>
-        <h3>恶魔猎手</h3>
-        <p>快攻残片 DH 以极低曲线压制对手，前期铺场 + 过牌能力顶尖。</p>
-        <span class="winrate">胜率 54.2%</span>
+        <h3>兆示萨</h3>
+        <p>6费兆示龙→7费死亡之翼→风怒刀终结。节奏链极强，当前最稳定的上分选择。</p>
+        <span class="winrate">胜率 56.0%</span>
       </div>
       <div class="meta-card tier-s">
         <span class="tier-badge">T1</span>
-        <h3>死亡骑士</h3>
-        <p>三色符文体系灵活多变，血DK控制能力极强，冰DK快攻也不俗。</p>
-        <span class="winrate">胜率 53.8%</span>
+        <h3>法术瞎</h3>
+        <p>海洋咒符+双地标体系。黄金赛验证竞技强度，对多数卡组保持优势。</p>
+        <span class="winrate">胜率 56.0%</span>
       </div>
-      <div class="meta-card tier-a">
-        <span class="tier-badge">T2</span>
-        <h3>圣骑士</h3>
-        <p>纯圣契骑与龙骑两个方向都有稳定表现，BUFF体系滚雪球能力强。</p>
-        <span class="winrate">胜率 52.1%</span>
+      <div class="meta-card tier-s">
+        <span class="tier-badge">T1</span>
+        <h3>兆示龙战</h3>
+        <p>按费拍怪+兆示联动+龙族BUFF三位一体，战士当前最强形态。</p>
+        <span class="winrate">胜率 57.6%</span>
       </div>
-      <div class="meta-card tier-a">
-        <span class="tier-badge">T2</span>
-        <h3>术士</h3>
-        <p>疲劳术与诅咒术消耗战表现优异，后期终结能力无可匹敌。</p>
-        <span class="winrate">胜率 51.6%</span>
+      <div class="meta-card tier-s">
+        <span class="tier-badge">T1</span>
+        <h3>打脸法</h3>
+        <p>极限快攻，高效过牌+海量直伤，接近59%胜率冠绝当前环境。</p>
+        <span class="winrate">胜率 59.4%</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="expansion" class="section expansion-section">
+  <div class="container">
+    <h2 class="section-title">🌋 最新扩展包：大地的裂变</h2>
+    <p class="expansion-intro">2026年3月18日上线 · 135张全新可收集卡牌 · 死亡之翼从未落败的梦魇时间线</p>
+    <div class="expansion-grid">
+      <div class="expansion-card">
+        <span class="expansion-icon">🔥</span>
+        <h3>全新关键词：兆示</h3>
+        <p>使用兆示卡牌时召唤职业巨型随从的士兵。兆示次数越多，巨型衍生物威力越强——<strong>2次翻倍、4次再翻倍</strong>达最终形态。适用：DH/DK/盗贼/萨满/术士/战士。</p>
+      </div>
+      <div class="expansion-card">
+        <span class="expansion-icon">💎</span>
+        <h3>全新关键词：裂变</h3>
+        <p>抽到裂变卡牌时<strong>分裂成两张不同效果的牌</strong>，分别置于手牌两端。清空中间卡牌后融合为一张更强力的完整卡牌。适用：法师/牧师/德鲁伊/猎人/圣骑。</p>
+      </div>
+      <div class="expansion-card">
+        <span class="expansion-icon">🐉</span>
+        <h3>巨型回归</h3>
+        <p>所有职业各获得一张<strong>传说巨型随从</strong>，登场时召唤衍生物占据多个战场空位。包括拉格纳罗斯（战士）、克洛玛图斯（圣骑）等经典角色。</p>
+      </div>
+      <div class="expansion-card hero-card-featured">
+        <span class="expansion-icon">👑</span>
+        <h3>首张中立英雄牌</h3>
+        <p><strong>灭世者死亡之翼</strong> — 战吼可触发多种大灾变效果：摧毁最大随从、烈焰清场、奴役随从、召唤龙族。兆示次数越多，效果越多。</p>
+      </div>
+    </div>
+    <div class="expansion-note">
+      <p>🎁 免费福利：「漫游翡翠梦境」+「安戈洛龟途」全卡免费试用 · 「治愈艾泽拉斯」职业系列5月上线 · 登录即领传说卡牌「战争大师黑角」</p>
     </div>
   </div>
 </section>
@@ -152,48 +190,143 @@
     <div class="guide-steps">
       <div class="step-card">
         <div class="step-number">01</div>
-        <h3>理解基础规则</h3>
+        <h3>完成学徒路线</h3>
         <ul>
-          <li><strong>法力水晶：</strong>每回合增长1颗（上限10），用于出牌和使用英雄技能。</li>
-          <li><strong>随从交换：</strong>用你的随从攻击敌方随从，保护己方英雄，建立场面优势。</li>
-          <li><strong>卡牌类型：</strong>随从、法术、武器、英雄牌、地标 — 各有不同用途。</li>
-          <li><strong>关键词：</strong>突袭、嘲讽、圣盾、亡语、战吼等是游戏核心机制。</li>
+          <li>通过<strong>学徒路线</strong>解锁全部10个职业，获取卡包和金币奖励。</li>
+          <li>完成<strong>旅店老板</strong>普通/困难首胜，拿额外金币。</li>
+          <li>善用<strong>追赶包</strong>（Catch-Up Pack）—— 卡越少开的越多，最多250张。</li>
+          <li>学徒路线结束可<strong>免费试玩6套竞技卡组</strong>，选一套永久保留。</li>
         </ul>
       </div>
       <div class="step-card">
         <div class="step-number">02</div>
-        <h3>构筑第一套卡组</h3>
+        <h3>理解基础规则</h3>
         <ul>
-          <li>新手推荐从<strong>快攻卡组</strong>入手 — 操作简单、节奏明快。</li>
-          <li>确保<strong>法力曲线</strong>平滑：1-3费的牌约占一半。</li>
-          <li>卡组中<strong>随从占比</strong>建议在60%-70%。</li>
-          <li>优先合成<strong>中立传说</strong>卡牌，多职业通用。</li>
+          <li><strong>法力水晶：</strong>每回合增长1颗（上限10），用于出牌和英雄技能。</li>
+          <li><strong>随从交换：</strong>用你的随从攻击敌方随从，保护己方英雄，建立场面优势。</li>
+          <li><strong>卡牌类型：</strong>随从、法术、武器、英雄牌、地标 — 各有不同用途。</li>
+          <li><strong>关键词：</strong>突袭、嘲讽、圣盾、亡语、战吼、兆示、裂变 — 游戏核心机制。</li>
         </ul>
       </div>
       <div class="step-card">
         <div class="step-number">03</div>
-        <h3>掌握核心概念</h3>
+        <h3>构筑第一套卡组</h3>
         <ul>
-          <li><strong>节奏 (Tempo)：</strong>每回合最大化利用法力水晶。</li>
-          <li><strong>卡差 (Card Advantage)：</strong>过牌比对手多 = 资源多。</li>
-          <li><strong>血量即资源：</strong>有时卖血保场面是正确选择。</li>
-          <li><strong>斩杀线：</strong>时刻计算对手的OTK范围。</li>
+          <li>新手推荐从<strong>快攻卡组</strong>入手 — 操作简单、造价低、节奏明快。</li>
+          <li>确保<strong>法力曲线</strong>平滑：1-3费的牌约占一半，保证前期不卡手。</li>
+          <li>优先合成<strong>中立传说</strong>卡牌（如碧蓝幼龙），多职业通用不浪费尘。</li>
+          <li><strong>白卡千万别合</strong>—— 开包自然会满。尘留给史诗和传说。</li>
         </ul>
       </div>
       <div class="step-card">
         <div class="step-number">04</div>
+        <h3>掌握核心概念</h3>
+        <ul>
+          <li><strong>节奏 (Tempo)：</strong>每回合最大化利用法力水晶，不空过。</li>
+          <li><strong>卡差 (Card Advantage)：</strong>过牌比对手多 = 资源多。一张牌换对面两张就是赚。</li>
+          <li><strong>血量即资源：</strong>术士抽牌掉血、卖血保场面，有时是正确选择。</li>
+          <li><strong>斩杀线：</strong>时刻计算对手的OTK范围，防患于未然。</li>
+        </ul>
+      </div>
+      <div class="step-card">
+        <div class="step-number">05</div>
+        <h3>零充 / 低预算上分</h3>
+        <ul>
+          <li>每天清<strong>3个日常任务</strong>保底50金，优先做高收益任务（80-100金）。</li>
+          <li>经典卡包<strong>前10包必出橙</strong>，金币优先开各系列保底橙。</li>
+          <li>推荐低造价上分卡组：<strong>野兽猎(~2400尘)、树人德(~3200尘)、龙战·吼爹版(~3600尘)</strong>。</li>
+          <li>每年4月退环境前<strong>别分旧卡</strong>，退环境后全额返尘再合新卡。</li>
+        </ul>
+      </div>
+      <div class="step-card">
+        <div class="step-number">06</div>
         <h3>爬天梯策略</h3>
         <ul>
-          <li>熟悉<strong>1-2套主流卡组</strong>，比会玩很多套更有效。</li>
-          <li>遇到连败果断<strong>暂停匹配</strong>，调整心态再战。</li>
-          <li>记住对手卡组的<strong>关键回合</strong>（如7费牧师必防AOE）。</li>
-          <li>从青铜到传说需要约<strong>150-200场</strong>净胜。</li>
+          <li>熟悉<strong>1-2套主流卡组</strong>，比会玩很多套更有效。专注才能上分。</li>
+          <li>遇到连败果断<strong>暂停匹配</strong>，调整心态再战。系统有时会匹配人机送温暖。</li>
+          <li>记住对手卡组的<strong>关键回合</strong>—— 7费牧师防AOE、6费萨满防兆示龙。</li>
+          <li>从青铜到传说需要约<strong>150-200场</strong>净胜，稳扎稳打。</li>
+        </ul>
+      </div>
+      <div class="step-card">
+        <div class="step-number">07</div>
+        <h3>善用工具与社区</h3>
+        <ul>
+          <li><strong>HSReplay.net</strong> — 查看实时环境数据和热门卡组胜率。</li>
+          <li><strong>旅法师营地 / NGA</strong> — 中文社区首选，抄卡组、看攻略。</li>
+          <li><strong>炉石盒子</strong> — 辅助选卡、记录战绩、查看对手卡组。</li>
+          <li>导入<strong>卡组代码</strong>前确认版本匹配，避免过期代码浪费尘。</li>
         </ul>
       </div>
     </div>
     <div class="quiz-section" id="quizSection">
       <button class="quiz-start-btn" id="quizStartBtn">📝 测验你的知识</button>
       <div class="quiz-container" id="quizContainer" style="display:none;"></div>
+    </div>
+  </div>
+</section>
+
+<section id="battlegrounds" class="section bg-section">
+  <div class="container">
+    <h2 class="section-title">⚔️ 酒馆战棋 <span class="version-tag">第13赛季</span></h2>
+    <p class="expansion-intro">全新关键词「进击」· 任务回归 · 100+随从刷新 · T0英雄：吉恩/米罗克/加里维克斯/斯尼德</p>
+
+    <h3 class="sub-section-title">🏆 最强流派</h3>
+    <div class="bg-comps-grid" id="bgGrid"></div>
+
+    <h3 class="sub-section-title">👑 T0 英雄</h3>
+    <div class="bg-heroes-grid" id="bgHeroesGrid"></div>
+
+    <div class="bg-leveling">
+      <h3 class="sub-section-title">📈 标准升级曲线</h3>
+      <div class="bg-curve">
+        <div class="bg-turn"><span>回合1</span><strong>3铸币</strong>买随从</div>
+        <div class="bg-turn"><span>回合2</span><strong>4铸币</strong>升2本</div>
+        <div class="bg-turn"><span>回合3</span><strong>5铸币</strong>卖1买2</div>
+        <div class="bg-turn"><span>回合4</span><strong>6铸币</strong>买2随从</div>
+        <div class="bg-turn"><span>回合5</span><strong>7铸币</strong>升3本+买1</div>
+        <div class="bg-turn"><span>回合6+</span><strong>8+铸币</strong>灵活运营</div>
+      </div>
+    </div>
+    <noscript><p style="text-align:center;color:var(--text-muted);padding:20px;">⚠️ 请启用 JavaScript 以查看酒馆战棋详情。</p></noscript>
+  </div>
+</section>
+
+<section id="arena" class="section arena-section">
+  <div class="container">
+    <h2 class="section-title">🏟️ 竞技场 <span class="version-tag">2026 重制版</span></h2>
+    <div class="arena-modes">
+      <div class="arena-mode-card">
+        <h3>🎯 普通模式 (The Arena)</h3>
+        <ul>
+          <li><strong>选牌革新：</strong>先选传说组合（传说+3张协同卡），再围绕构建套牌</li>
+          <li><strong>节奏更快：</strong>5胜或2败结束，不再拖长局</li>
+          <li><strong>公平匹配：</strong>基于MMR匹配实力相近的对手</li>
+          <li><strong>入场费：</strong>1张旅店通票（150金币/200符文石）</li>
+          <li><strong>最高奖励：</strong>5胜 = 1通票+2卡包，实现永动</li>
+        </ul>
+      </div>
+      <div class="arena-mode-card arena-underground">
+        <h3>💀 地下模式 (The Underground)</h3>
+        <ul>
+          <li><strong>解锁条件：</strong>普通模式累计7胜后开启</li>
+          <li><strong>经典规则：</strong>12胜或3败，无MMR匹配</li>
+          <li><strong>独特机制：</strong>每次失败后可重选5张卡牌</li>
+          <li><strong>入场费：</strong>2张旅店通票</li>
+          <li><strong>终极奖励：</strong>12胜获专属英雄皮肤「幽灵奈法利安」</li>
+        </ul>
+      </div>
+    </div>
+    <div class="arena-tips">
+      <h3 class="sub-section-title">🧠 竞技场进阶技巧</h3>
+      <div class="tips-grid">
+        <div class="tip-mini-card">场面控制优先 — 随从交换比打脸更重要</div>
+        <div class="tip-mini-card">节奏不空过 — 每回合用满法力是赢的基础</div>
+        <div class="tip-mini-card">选牌重曲线 — 确保2-4费有足够随从可出</div>
+        <div class="tip-mini-card">传说组合定方向 — 选择有内部协同的组合</div>
+        <div class="tip-mini-card">优势抢血劣势控场 — 判断当前局面选择策略</div>
+        <div class="tip-mini-card">了解职业强度 — 法师/牧师/DK当前竞技场强势</div>
+      </div>
     </div>
   </div>
 </section>
