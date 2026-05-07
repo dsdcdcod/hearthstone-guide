@@ -688,6 +688,28 @@ if (cardsGrid) {
   opt10.value = '10+'; opt10.textContent = '10+ 费';
   costFilter.appendChild(opt10);
 
+  // Set display names
+  const SET_NAMES = {
+    CORE: '核心', EXPERT1: '经典', LEGACY: '怀旧', NAXX: '纳克萨玛斯',
+    GVG: '地精大战侏儒', BRM: '黑石山', TGT: '冠军的试炼', LOE: '探险者协会',
+    OG: '古神低语', KARA: '卡拉赞之夜', GANGS: '龙争虎斗加基森',
+    UNGORO: '勇闯安戈洛', ICECROWN: '冰封王座', LOOTAPALOOZA: '狗头人与地下世界',
+    GILNEAS: '女巫森林', BOOMSDAY: '砰砰计划', TROLL: '拉斯塔哈的大乱斗',
+    DALARAN: '暗影崛起', ULDUM: '奥丹姆奇兵', DRAGONS: '巨龙降临',
+    DEMON_HUNTER_INITIATE: '恶魔猎手序章', BLACK_TEMPLE: '外域的灰烬',
+    SCHOLOMANCE: '通灵学园', DARKMOON_FAIRE: '暗月马戏团', THE_BARRENS: '贫瘠之地',
+    STORMWIND: '暴风城', ALTERAC_VALLEY: '奥特兰克', THE_SUNKEN_CITY: '沉没之城',
+    REVENDRETH: '纳斯利亚堡', RETURN_OF_THE_LICH_KING: '巫妖王归来',
+    PATH_OF_ARTHAS: '阿尔萨斯之路', BATTLE_OF_THE_BANDS: '传奇音乐节',
+    TITANS: '泰坦诸神', WILD_WEST: '决战荒芜之地', WHIZBANGS_WORKSHOP: '威兹班工坊',
+    SPACE: '深暗领域', TIME_TRAVEL: '时光之穴', EMERALD_DREAM: '漫游翡翠梦境',
+    CATACLYSM: '大地的裂变', ISLAND_VACATION: '安戈洛龟途', THE_LOST_CITY: '失落之城',
+    WONDERS: '星际英雄传', YEAR_OF_THE_DRAGON: '巨龙年', VANILLA: '基础',
+    HERO_SKINS: '英雄皮肤', EVENT: '活动', PLACEHOLDER_202204: '占位'
+  };
+
+  function getSetName(set) { return SET_NAMES[set] || set; }
+
   function getCardClass(c) { return c.cardClass || 'NEUTRAL'; }
 
   function applyFilters() {
@@ -695,12 +717,15 @@ if (cardsGrid) {
     const type = typeFilter.value;
     const rarity = rarityFilter.value;
     const cost = costFilter.value;
+    const set = setFilter.value;
+    const sort = sortBy.value;
     const query = cardSearch.value.trim().toLowerCase();
 
     filteredCards = allCards.filter(c => {
       if (cls !== 'ALL' && getCardClass(c) !== cls) return false;
       if (type !== 'ALL' && c.type !== type) return false;
       if (rarity !== 'ALL' && c.rarity !== rarity) return false;
+      if (set !== 'ALL' && c.set !== set) return false;
       if (cost !== 'ALL') {
         if (cost === '10+') { if ((c.cost || 0) < 10) return false; }
         else { if (c.cost !== parseInt(cost)) return false; }
@@ -708,6 +733,21 @@ if (cardsGrid) {
       if (query && !(c.name || '').toLowerCase().includes(query) && !(c.text || '').toLowerCase().includes(query)) return false;
       return true;
     });
+
+    // Sort
+    const setOrder = [...new Set(allCards.map(c => c.set).filter(Boolean))].sort();
+    filteredCards.sort((a, b) => {
+      switch (sort) {
+        case 'set-cost-asc':
+          const si = setOrder.indexOf(a.set) - setOrder.indexOf(b.set);
+          return si !== 0 ? si : ((a.cost || 0) - (b.cost || 0));
+        case 'cost-asc': return (a.cost || 0) - (b.cost || 0);
+        case 'cost-desc': return (b.cost || 0) - (a.cost || 0);
+        case 'name-asc': return (a.name || '').localeCompare(b.name || '', 'zh');
+        default: return 0;
+      }
+    });
+
     currentPage = 1;
     renderPage();
   }
@@ -773,7 +813,22 @@ if (cardsGrid) {
         if (!seen.has(key) || (c.dbfId || 0) > (seen.get(key).dbfId || 0)) seen.set(key, c);
       });
       allCards = [...seen.values()];
+
+      // Build set filter from data
+      const setOrder = [...new Set(allCards.map(c => c.set).filter(Boolean))].sort();
+      setOrder.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s; opt.textContent = getSetName(s);
+        setFilter.appendChild(opt);
+      });
+
+      // Default sort: set → cost asc
       filteredCards = [...allCards];
+      filteredCards.sort((a, b) => {
+        const si = setOrder.indexOf(a.set) - setOrder.indexOf(b.set);
+        return si !== 0 ? si : ((a.cost || 0) - (b.cost || 0));
+      });
+
       const countTag = document.querySelector('#cards .version-tag');
       if (countTag) countTag.textContent = allCards.length.toLocaleString() + ' 张';
       cardsLoaded = true;
@@ -797,6 +852,8 @@ if (cardsGrid) {
   typeFilter.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
   rarityFilter.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
   costFilter.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
+  setFilter.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
+  sortBy.addEventListener('change', () => { if (cardsLoaded) applyFilters(); });
 
   let searchTimeout;
   cardSearch.addEventListener('input', () => {
