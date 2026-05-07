@@ -688,7 +688,7 @@ if (cardsGrid) {
   opt10.value = '10+'; opt10.textContent = '10+ 费';
   costFilter.appendChild(opt10);
 
-  // Set display names
+  // Set display names and chronological order
   const SET_NAMES = {
     CORE: '核心', EXPERT1: '经典', LEGACY: '怀旧', NAXX: '纳克萨玛斯',
     GVG: '地精大战侏儒', BRM: '黑石山', TGT: '冠军的试炼', LOE: '探险者协会',
@@ -707,6 +707,20 @@ if (cardsGrid) {
     WONDERS: '星际英雄传', YEAR_OF_THE_DRAGON: '巨龙年', VANILLA: '基础',
     HERO_SKINS: '英雄皮肤', EVENT: '活动', PLACEHOLDER_202204: '占位'
   };
+
+  // Chronological order by release date
+  const SET_CHRONO = [
+    'VANILLA','EXPERT1','LEGACY','NAXX','GVG','BRM','TGT','LOE',
+    'OG','KARA','GANGS','UNGORO','ICECROWN','LOOTAPALOOZA',
+    'GILNEAS','BOOMSDAY','TROLL','DALARAN','ULDUM','DRAGONS',
+    'DEMON_HUNTER_INITIATE','BLACK_TEMPLE','SCHOLOMANCE','DARKMOON_FAIRE',
+    'THE_BARRENS','STORMWIND','ALTERAC_VALLEY','THE_SUNKEN_CITY',
+    'REVENDRETH','PATH_OF_ARTHAS','RETURN_OF_THE_LICH_KING',
+    'BATTLE_OF_THE_BANDS','TITANS','WILD_WEST','WHIZBANGS_WORKSHOP',
+    'SPACE','TIME_TRAVEL','WONDERS','EMERALD_DREAM','CATACLYSM',
+    'ISLAND_VACATION','THE_LOST_CITY','YEAR_OF_THE_DRAGON',
+    'HERO_SKINS','EVENT','PLACEHOLDER_202204'
+  ];
 
   function getSetName(set) { return SET_NAMES[set] || set; }
 
@@ -735,7 +749,8 @@ if (cardsGrid) {
     });
 
     // Sort
-    const setOrder = [...new Set(allCards.map(c => c.set).filter(Boolean))].sort();
+    const setNames = new Set(allCards.map(c => c.set).filter(Boolean));
+    const setOrder = SET_CHRONO.filter(s => setNames.has(s));
     filteredCards.sort((a, b) => {
       switch (sort) {
         case 'set-cost-asc':
@@ -761,14 +776,10 @@ if (cardsGrid) {
 
     cardsGrid.innerHTML = pageCards.map(c => {
       const cardImg = `https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/${c.id}.png`;
-      const cardImgBig = `https://art.hearthstonejson.com/v1/render/latest/zhCN/512x/${c.id}.png`;
 
       return `
         <div class="card-item">
           <img src="${cardImg}" alt="${c.name || '卡牌'}" loading="lazy" onerror="this.style.display='none'">
-          <div class="card-hover-zoom">
-            <img src="${cardImgBig}" alt="${c.name || '卡牌'}" loading="lazy">
-          </div>
         </div>`;
     }).join('');
 
@@ -814,8 +825,9 @@ if (cardsGrid) {
       });
       allCards = [...seen.values()];
 
-      // Build set filter from data
-      const setOrder = [...new Set(allCards.map(c => c.set).filter(Boolean))].sort();
+      // Build set filter in chronological order
+      const setNames = new Set(allCards.map(c => c.set).filter(Boolean));
+      const setOrder = SET_CHRONO.filter(s => setNames.has(s));
       setOrder.forEach(s => {
         const opt = document.createElement('option');
         opt.value = s; opt.textContent = getSetName(s);
