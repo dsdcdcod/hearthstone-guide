@@ -798,10 +798,12 @@ if (cardsGrid) {
     'THE_BARRENS','STORMWIND','ALTERAC_VALLEY','THE_SUNKEN_CITY',
     'REVENDRETH','PATH_OF_ARTHAS','RETURN_OF_THE_LICH_KING',
     'BATTLE_OF_THE_BANDS','TITANS','WILD_WEST','WHIZBANGS_WORKSHOP',
-    'SPACE','TIME_TRAVEL','WONDERS','EMERALD_DREAM','CATACLYSM',
-    'ISLAND_VACATION','THE_LOST_CITY','YEAR_OF_THE_DRAGON',
-    'HERO_SKINS','EVENT','PLACEHOLDER_202204'
+    'SPACE','WONDERS','EMERALD_DREAM','ISLAND_VACATION','THE_LOST_CITY',
+    'TIME_TRAVEL','CATACLYSM'
   ];
+
+  // Non-card sets excluded from expansion filter (hero skins, events, placeholders)
+  const EXCLUDED_SETS = new Set(['HERO_SKINS','EVENT','PLACEHOLDER_202204','YEAR_OF_THE_DRAGON','VANILLA']);
 
   function getSetName(set) { return SET_NAMES[set] || set; }
 
@@ -835,7 +837,9 @@ if (cardsGrid) {
     filteredCards.sort((a, b) => {
       switch (sort) {
         case 'set-cost-asc':
-          const si = setOrder.indexOf(a.set) - setOrder.indexOf(b.set);
+          const ai = setOrder.indexOf(a.set), bi = setOrder.indexOf(b.set);
+          const aIdx = ai === -1 ? 9999 : ai, bIdx = bi === -1 ? 9999 : bi;
+          const si = aIdx - bIdx;
           return si !== 0 ? si : ((a.cost || 0) - (b.cost || 0));
         case 'cost-asc': return (a.cost || 0) - (b.cost || 0);
         case 'cost-desc': return (b.cost || 0) - (a.cost || 0);
@@ -906,19 +910,21 @@ if (cardsGrid) {
       });
       allCards = [...seen.values()];
 
-      // Build set filter in chronological order
+      // Build set filter in chronological order (skip excluded sets)
       const setNames = new Set(allCards.map(c => c.set).filter(Boolean));
-      const setOrder = SET_CHRONO.filter(s => setNames.has(s));
+      const setOrder = SET_CHRONO.filter(s => setNames.has(s) && !EXCLUDED_SETS.has(s));
       setOrder.forEach(s => {
         const opt = document.createElement('option');
         opt.value = s; opt.textContent = getSetName(s);
         setFilter.appendChild(opt);
       });
 
-      // Default sort: set → cost asc
+      // Default sort: set → cost asc (excluded sets sorted last)
       filteredCards = [...allCards];
       filteredCards.sort((a, b) => {
-        const si = setOrder.indexOf(a.set) - setOrder.indexOf(b.set);
+        const ai = setOrder.indexOf(a.set), bi = setOrder.indexOf(b.set);
+        const aIdx = ai === -1 ? 9999 : ai, bIdx = bi === -1 ? 9999 : bi;
+        const si = aIdx - bIdx;
         return si !== 0 ? si : ((a.cost || 0) - (b.cost || 0));
       });
 
