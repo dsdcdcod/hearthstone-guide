@@ -775,8 +775,16 @@ if (cardsGrid) {
   fetch('cards-data.json')
     .then(r => r.json())
     .then(data => {
-      allCards = data;
+      // Deduplicate by name — keep newest version (highest dbfId)
+      const seen = new Map();
+      data.forEach(c => {
+        const key = c.name;
+        if (!seen.has(key) || (c.dbfId || 0) > (seen.get(key).dbfId || 0)) seen.set(key, c);
+      });
+      allCards = [...seen.values()];
       filteredCards = [...allCards];
+      const countTag = document.querySelector('#cards .version-tag');
+      if (countTag) countTag.textContent = allCards.length.toLocaleString() + ' 张';
       cardsLoaded = true;
       cardsLoading.style.display = 'none';
       renderPage();
