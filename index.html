@@ -7,12 +7,41 @@
   <meta property="og:title" content="炉石传说攻略站 - 从入门到传说">
   <meta property="og:description" content="全方位策略指南：环境速览、职业攻略、卡组推荐、新手入门与进阶技巧。">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://dsdcdcod.github.io/hearthstone-guide/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <title>炉石传说攻略站 - 从入门到传说</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "炉石传说攻略站",
+    "description": "从新手到传说 · 全方位策略指南",
+    "url": "https://dsdcdcod.github.io/hearthstone-guide/",
+    "inLanguage": "zh-CN",
+    "about": {
+      "@type": "VideoGame",
+      "name": "Hearthstone",
+      "url": "https://hearthstone.blizzard.com/",
+      "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 2 },
+      "gamePlatform": ["PC", "Mobile"]
+    },
+    "hasPart": [
+      { "@type": "Article", "name": "当前环境速览", "description": "T1/T2职业胜率分析" },
+      { "@type": "Article", "name": "职业攻略", "description": "11职业英雄技能与玩法详解" },
+      { "@type": "Article", "name": "热门卡组推荐", "description": "快攻、中速、控制、组合技卡组推荐" },
+      { "@type": "Article", "name": "新手入门指南", "description": "从基础规则到爬天梯策略" },
+      { "@type": "Article", "name": "进阶技巧", "description": "资源管理、读牌预判、卡组构筑、概率分析" }
+    ]
+  }
+  </script>
 </head>
 <body>
 
 <a href="#main-content" class="skip-link">跳到主内容</a>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header class="site-header">
   <div class="container">
@@ -34,9 +63,9 @@
     <h2>在酒馆中打磨你的技艺</h2>
     <p>掌握对局节奏、资源管理与卡组构筑，一步步登上传说宝座</p>
     <div class="banner-stats">
-      <div class="stat-item"><span class="stat-num">11</span><span class="stat-label">职业</span></div>
-      <div class="stat-item"><span class="stat-num">5000+</span><span class="stat-label">可收集卡牌</span></div>
-      <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">主流模式</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="11" data-suffix="">0</span><span class="stat-label">职业</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="5000" data-suffix="+">0</span><span class="stat-label">可收集卡牌</span></div>
+      <div class="stat-item"><span class="stat-num" data-target="3" data-suffix="">0</span><span class="stat-label">主流模式</span></div>
     </div>
   </div>
 </section>

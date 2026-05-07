@@ -36,6 +36,17 @@
 
 html { scroll-behavior: smooth; }
 
+/* ========== Scroll Progress ========== */
+.scroll-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), #f5d55a);
+  z-index: 200;
+  border-radius: 0 2px 2px 0;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(240,184,35,0.4);
+}
+
 /* ========== Skip Link ========== */
 .skip-link {
   position: absolute; top: -100px; left: 16px;
@@ -260,6 +271,8 @@ a:hover { color: var(--gold-dark); }
   font-size: 0.78rem;
   color: var(--gold);
 }
+.keyword-row { margin-top: 8px; }
+.deck-cards { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
 
 /* ========== Decks ========== */
 .deck-filter { display: flex; justify-content: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }

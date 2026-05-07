@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a0e0e"/>
+      <stop offset="100%" stop-color="#2a1515"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="40" y="40" width="1120" height="550" rx="16" fill="none" stroke="#3a2828" stroke-width="2"/>
+  <text x="600" y="240" text-anchor="middle" font-family="sans-serif" font-size="72" font-weight="bold" fill="#f0b823">🔥 炉石传说攻略站</text>
+  <text x="600" y="330" text-anchor="middle" font-family="sans-serif" font-size="32" fill="#a08060">从新手到传说 · 全方位策略指南</text>
+  <line x1="500" y1="380" x2="700" y2="380" stroke="#f0b823" stroke-width="3" stroke-linecap="round"/>
+  <text x="600" y="450" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#e8d5b0">11职业攻略 · 热门卡组推荐 · 新手指南 · 进阶技巧</text>
+  <text x="600" y="540" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#6b5e4a">在酒馆里，每个人都能成为传说</text>
+</svg>

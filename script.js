@@ -145,7 +145,7 @@ heroes.forEach(hero => {
     <p class="hero-power">${hero.power}</p>
     <div class="hero-detail">
       <p>${hero.detail}</p>
-      <p style="margin-top:8px;">
+      <p class="keyword-row">
         ${hero.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join(' ')}
       </p>
     </div>
@@ -175,7 +175,7 @@ function renderDecks(filter) {
       <p class="deck-class">${deck.class}</p>
       <p class="deck-desc">${deck.desc}</p>
       <p class="deck-dust">${deck.dust}</p>
-      <p style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">${deck.cards}</p>
+      <p class="deck-cards">${deck.cards}</p>
     `;
     decksGrid.appendChild(card);
   });
@@ -293,6 +293,17 @@ document.querySelectorAll('.tip-header').forEach(header => {
     header.setAttribute('aria-expanded', !isOpen);
   });
 });
+
+// ========== Scroll Progress ==========
+const scrollProgress = document.getElementById('scrollProgress');
+if (scrollProgress) {
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = progress + '%';
+  });
+}
 
 // ========== Back to Top ==========
 const backToTop = document.getElementById('backToTop');
@@ -465,5 +476,33 @@ if (quizStartBtn && quizContainer) {
   }
 
   quizStartBtn.addEventListener('click', renderQuiz);
+}
+
+// ========== Count-Up Animation ==========
+const statNums = document.querySelectorAll('.stat-num[data-target]');
+if (statNums.length > 0) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1500;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+
+      requestAnimationFrame(update);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+
+  statNums.forEach(el => observer.observe(el));
 }
 
