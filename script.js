@@ -1,3 +1,20 @@
+// ========== Safe HTML Helpers ==========
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[ch]));
+}
+
+function sanitizeCardText(value) {
+  return escapeHTML(value)
+    .replace(/&lt;(\/?)b&gt;/g, '<$1b>')
+    .replace(/\n/g, '<br>');
+}
+
 // ========== Hero Data ==========
 const heroes = [
   {
@@ -276,12 +293,27 @@ if (!decksGrid) { console.warn('decksGrid element not found'); } else {
 
 let currentDeckFormat = 'all';
 let currentDeckType = 'all';
+let currentDeckClass = 'all';
+
+// Build class filter buttons from deck data
+const classFilterRow = document.getElementById('classFilterRow');
+if (classFilterRow) {
+  const classes = [...new Set(decks.map(d => d.cls))];
+  classes.forEach(cls => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn class-filter-btn';
+    btn.dataset.class = cls;
+    btn.textContent = cls;
+    classFilterRow.appendChild(btn);
+  });
+}
 
 function renderDecks() {
   decksGrid.innerHTML = '';
   const filtered = decks.filter(d => {
     if (currentDeckFormat !== 'all' && d.format !== currentDeckFormat) return false;
     if (currentDeckType !== 'all' && d.type !== currentDeckType) return false;
+    if (currentDeckClass !== 'all' && d.cls !== currentDeckClass) return false;
     return true;
   });
 
@@ -292,13 +324,13 @@ function renderDecks() {
       <span class="deck-tier ${deck.tier === 'T1' ? 'tier-s' : deck.tier === 'T2' ? 'tier-a' : 'tier-b'}">${deck.tier}</span>
       <span class="deck-type ${deck.type}">${getTypeLabel(deck.type)}</span>
       <span class="deck-cost cost-${deck.cost}">${deck.cost}造价</span>
-      <h3>${deck.name}</h3>
-      <p class="deck-class">${deck.cls}</p>
-      <p class="deck-desc">${deck.desc}</p>
-      <p class="deck-cards">核心：${deck.cards}</p>
+      <h3>${escapeHTML(deck.name)}</h3>
+      <p class="deck-class">${escapeHTML(deck.cls)}</p>
+      <p class="deck-desc">${escapeHTML(deck.desc)}</p>
+      <p class="deck-cards">核心：${deck.cards.split('、').map(c => `<span class="card-link" data-card-name="${escapeHTML(c.trim())}">${escapeHTML(c.trim())}</span>`).join('、')}</p>
       <div class="deck-bottom">
-        <p class="deck-dust">${deck.dust}</p>
-        <button class="deck-code-btn" data-code="${deck.code}" title="复制卡组代码">📋 复制代码</button>
+        <p class="deck-dust">${escapeHTML(deck.dust)}</p>
+        <button class="deck-code-btn" data-code="${escapeHTML(deck.code)}" title="复制卡组代码">📋 复制代码</button>
       </div>
     `;
     decksGrid.appendChild(card);
@@ -320,6 +352,19 @@ function renderDecks() {
   });
 }
 
+// Card name link → card gallery
+decksGrid.addEventListener('click', (e) => {
+  const link = e.target.closest('.card-link');
+  if (!link) return;
+  const cardName = link.dataset.cardName;
+  if (cardSearch && cardName) {
+    cardSearch.value = cardName;
+    if (!cardsLoaded) loadCardsData();
+    else applyFilters();
+    document.querySelector('#cards').scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
 function getTypeLabel(type) {
   const labels = { aggro: '快攻', midrange: '中速', control: '控制', combo: '组合技' };
   return labels[type] || type;
@@ -338,14 +383,26 @@ document.querySelectorAll('.format-btn').forEach(btn => {
 });
 
 // ========== Deck Filter (Type) ==========
-document.querySelectorAll('.filter-btn:not(.format-btn)').forEach(btn => {
+document.querySelectorAll('.filter-btn:not(.format-btn):not(.class-filter-btn)').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn:not(.format-btn)').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn:not(.format-btn):not(.class-filter-btn)').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentDeckType = btn.dataset.filter;
     renderDecks();
   });
 });
+
+// ========== Deck Filter (Class) ==========
+if (classFilterRow) {
+  classFilterRow.addEventListener('click', (e) => {
+    const btn = e.target.closest('.class-filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.class-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDeckClass = btn.dataset.class;
+    renderDecks();
+  });
+}
 
 // ========== Deck Compare ==========
 const compareToggle = document.getElementById('compareToggle');
@@ -361,6 +418,7 @@ if (compareToggle && comparePanel && compareSlot1 && compareSlot2) {
     return decks.filter(d => {
       if (currentDeckFormat !== 'all' && d.format !== currentDeckFormat) return false;
       if (currentDeckType !== 'all' && d.type !== currentDeckType) return false;
+      if (currentDeckClass !== 'all' && d.cls !== currentDeckClass) return false;
       return true;
     });
   }
@@ -369,7 +427,7 @@ if (compareToggle && comparePanel && compareSlot1 && compareSlot2) {
     [compareSlot1, compareSlot2].forEach((slot, i) => {
       if (selectedDecks[i]) {
         const d = selectedDecks[i];
-        slot.innerHTML = `<h4>${d.name}</h4><p>${d.cls} · ${getTypeLabel(d.type)} · ${d.tier} · ${d.format === 'standard' ? '标准' : '狂野'}</p><p class="compare-dust">${d.dust}</p><p class="compare-cards">核心：${d.cards}</p>`;
+        slot.innerHTML = `<h4>${escapeHTML(d.name)}</h4><p>${escapeHTML(d.cls)} · ${escapeHTML(getTypeLabel(d.type))} · ${escapeHTML(d.tier)} · ${d.format === 'standard' ? '标准' : '狂野'}</p><p class="compare-dust">${escapeHTML(d.dust)}</p><p class="compare-cards">核心：${escapeHTML(d.cards)}</p><p class="compare-code">${escapeHTML(d.code)}</p>`;
       } else {
         slot.innerHTML = `<span class="compare-placeholder">选择第${i + 1}个卡组</span>`;
       }
@@ -488,11 +546,131 @@ document.querySelectorAll('.nav-bar a[href^="#"]').forEach(link => {
   });
 });
 
+// ========== Global Search ==========
+const globalSearch = document.getElementById('globalSearch');
+const globalSearchResults = document.getElementById('globalSearchResults');
+if (globalSearch && globalSearchResults) {
+  let gsTimeout;
+  globalSearch.addEventListener('input', () => {
+    clearTimeout(gsTimeout);
+    gsTimeout = setTimeout(() => {
+      const q = globalSearch.value.trim().toLowerCase();
+      if (!q) { globalSearchResults.style.display = 'none'; return; }
+
+      const results = [];
+      // Search heroes
+      heroes.forEach(h => {
+        if (h.name.includes(q) || h.en.toLowerCase().includes(q) || h.keywords.some(k => k.includes(q))) {
+          results.push({ section: '职业攻略', text: `${h.name} (${h.en})`, href: '#heroes' });
+        }
+      });
+      // Search decks
+      decks.forEach(d => {
+        if (d.name.includes(q) || d.cls.includes(q) || d.desc.includes(q)) {
+          results.push({ section: '卡组推荐', text: `${d.name} — ${d.cls} ${d.tier}`, href: '#decks' });
+        }
+      });
+      // Search tips
+      document.querySelectorAll('.tip-body').forEach(body => {
+        if (body.textContent.toLowerCase().includes(q)) {
+          const header = body.parentElement.querySelector('.tip-header');
+          if (header) results.push({ section: '进阶技巧', text: header.textContent.replace('▾','').trim(), href: '#tips' });
+        }
+      });
+      // Search beginner guide
+      document.querySelectorAll('.step-card').forEach(card => {
+        if (card.textContent.toLowerCase().includes(q)) {
+          const h3 = card.querySelector('h3');
+          if (h3) results.push({ section: '新手入门', text: h3.textContent, href: '#beginner' });
+        }
+      });
+      // Search card gallery
+      if (cardsLoaded) {
+        const cardMatches = allCards.filter(c => (c.name || '').toLowerCase().includes(q));
+        if (cardMatches.length > 0) {
+          results.push({ section: '卡牌图鉴', text: `搜索卡牌 "${q}" (${cardMatches.length} 张匹配)`, href: '#cards', cardQuery: q });
+        }
+      } else {
+        results.push({ section: '卡牌图鉴', text: `搜索卡牌 "${q}" (滚动到卡牌区域加载)`, href: '#cards', cardQuery: q });
+      }
+
+      if (results.length === 0) {
+        globalSearchResults.innerHTML = '<div class="global-search-no-result">未找到相关内容</div>';
+      } else {
+        globalSearchResults.innerHTML = results.slice(0, 8).map(r => `
+          <a class="global-search-result-item" href="${escapeHTML(r.href)}" data-card-query="${escapeHTML(r.cardQuery || '')}">
+            <span class="result-section">${escapeHTML(r.section)}</span>
+            <span>${escapeHTML(r.text)}</span>
+          </a>
+        `).join('');
+      }
+      globalSearchResults.style.display = '';
+    }, 200);
+  });
+
+  // Handle result clicks
+  globalSearchResults.addEventListener('click', (e) => {
+    const item = e.target.closest('.global-search-result-item');
+    if (!item) return;
+    const cardQuery = item.dataset.cardQuery;
+    if (cardQuery) {
+      cardSearch.value = cardQuery;
+      if (!cardsLoaded) loadCardsData();
+      else applyFilters();
+    }
+    globalSearchResults.style.display = 'none';
+    globalSearch.value = '';
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!globalSearch.contains(e.target) && !globalSearchResults.contains(e.target)) {
+      globalSearchResults.style.display = 'none';
+    }
+  });
+}
+
+// ========== Hamburger Menu ==========
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navBar = document.getElementById('navBar');
+if (hamburgerBtn && navBar) {
+  hamburgerBtn.addEventListener('click', () => {
+    const open = navBar.classList.toggle('open');
+    hamburgerBtn.setAttribute('aria-expanded', open);
+  });
+  // Close on nav link click
+  navBar.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navBar.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+// ========== Nav Scroll Spy ==========
+(() => {
+  const navLinks = [...document.querySelectorAll('.nav-bar a[href^="#"]')];
+  const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!sections.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-bar a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+})();
+
 // ========== Theme Toggle ==========
 const themeToggle = document.getElementById('themeToggle');
 if (themeToggle) {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') {
+  const saved = localStorage.getItem('theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  if (saved === 'light' || (!saved && prefersLight)) {
     document.documentElement.setAttribute('data-theme', 'light');
     themeToggle.textContent = '☀️';
   }
@@ -534,44 +712,42 @@ if (heroSearch && heroesGrid) {
 
 // ========== Quiz ==========
 const quizData = [
-  {
-    question: '每回合最多可以拥有多少颗法力水晶？',
-    options: ['8', '10', '12', '无上限'],
-    answer: 1
-  },
-  {
-    question: '以下哪个关键词表示"无法成为法术或英雄技能的目标"？',
-    options: ['嘲讽', '圣盾', '潜行', '魔免'],
-    answer: 3
-  },
-  {
-    question: '新手推荐从哪种类型的卡组入手？',
-    options: ['控制卡组', '组合技卡组', '快攻卡组', '疲劳卡组'],
-    answer: 2
-  },
-  {
-    question: '"发现"机制会从几张牌中选择？',
-    options: ['1张', '2张', '3张', '随机'],
-    answer: 2
-  },
-  {
-    question: '以下哪种行为可以获得"卡差优势"？',
-    options: ['每回合用满法力水晶', '使用英雄技能打脸', '过牌比对手多', '抢先使用传说卡牌'],
-    answer: 2
-  }
+  { question: '每回合最多可以拥有多少颗法力水晶？', options: ['8', '10', '12', '无上限'], answer: 1 },
+  { question: '以下哪个关键词表示"无法成为法术或英雄技能的目标"？', options: ['嘲讽', '圣盾', '潜行', '魔免'], answer: 3 },
+  { question: '新手推荐从哪种类型的卡组入手？', options: ['控制卡组', '组合技卡组', '快攻卡组', '疲劳卡组'], answer: 2 },
+  { question: '"发现"机制会从几张牌中选择？', options: ['1张', '2张', '3张', '随机'], answer: 2 },
+  { question: '以下哪种行为可以获得"卡差优势"？', options: ['每回合用满法力水晶', '使用英雄技能打脸', '过牌比对手多', '抢先使用传说卡牌'], answer: 2 },
+  { question: '"大地的裂变"中"兆示"关键词的效果是什么？', options: ['召唤巨型随从士兵', '抽到时分裂成两张牌', '使随从获得+1/+1', '摧毁对手的法力水晶'], answer: 0 },
+  { question: '标准模式最多可以使用几个扩展包的卡牌？', options: ['全部扩展包', '最近4-6个扩展包', '最近2个扩展包', '无限制'], answer: 1 },
+  { question: '"战吼"效果在什么时候触发？', options: ['随从死亡时', '随从攻击时', '随从从手牌打出时', '回合开始时'], answer: 2 },
+  { question: '以下哪个是狂野模式特有的卡组？', options: ['兆示萨', '法术瞎', '海盗烧树贼', '直伤法'], answer: 2 },
+  { question: '酒馆战棋中"铜须"的效果是什么？', options: ['战吼触发两次', '亡语触发两次', '+2攻击力', '所有随从+1/+1'], answer: 0 },
+  { question: '竞技场普通模式最高可以获得几胜？', options: ['7胜', '5胜', '12胜', '9胜'], answer: 1 },
+  { question: '一张传说卡牌在卡组中最多可以带几张？', options: ['1张', '2张', '4张', '无限制'], answer: 0 },
+  { question: '"突袭"随从在打出的当回合可以做什么？', options: ['攻击英雄', '攻击敌方随从', '无法攻击', '任意攻击'], answer: 1 },
+  { question: '以下哪张牌是中立英雄牌？', options: ['古夫·符文图腾', '灭世者死亡之翼', '光铸凯尔萨斯', '拉格纳罗斯'], answer: 1 },
+  { question: '新手完成学徒路线后可以获得什么？', options: ['直接上传说', '免费试玩6套竞技卡组', '全部卡牌', '无限金币'], answer: 1 }
 ];
 
 const quizStartBtn = document.getElementById('quizStartBtn');
 const quizContainer = document.getElementById('quizContainer');
 
 if (quizStartBtn && quizContainer) {
-  let userAnswers = new Array(quizData.length).fill(-1);
+  let currentQuiz = [];
+  let userAnswers = [];
   let quizSubmitted = false;
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
 
   function renderQuiz() {
     quizSubmitted = false;
-    userAnswers = new Array(quizData.length).fill(-1);
-    quizContainer.innerHTML = quizData.map((q, qi) => `
+    currentQuiz = shuffle(quizData).slice(0, 5);
+    userAnswers = new Array(currentQuiz.length).fill(-1);
+    quizContainer.innerHTML = currentQuiz.map((q, qi) => `
       <div class="quiz-question">
         <h4>${qi + 1}. ${q.question}</h4>
         ${q.options.map((opt, oi) => `
@@ -603,13 +779,13 @@ if (quizStartBtn && quizContainer) {
     if (userAnswers.includes(-1)) return;
     quizSubmitted = true;
     let score = 0;
-    quizData.forEach((q, qi) => {
+    currentQuiz.forEach((q, qi) => {
       if (userAnswers[qi] === q.answer) score++;
     });
     quizContainer.querySelectorAll('.quiz-option').forEach(btn => {
       const qi = parseInt(btn.dataset.q);
       btn.disabled = true;
-      if (parseInt(btn.dataset.o) === quizData[qi].answer) btn.classList.add('correct');
+      if (parseInt(btn.dataset.o) === currentQuiz[qi].answer) btn.classList.add('correct');
       else if (parseInt(btn.dataset.o) === userAnswers[qi]) btn.classList.add('wrong');
     });
     const comments = [
@@ -622,7 +798,7 @@ if (quizStartBtn && quizContainer) {
     document.getElementById('quizSubmit').remove();
     quizContainer.insertAdjacentHTML('beforeend', `
       <div class="quiz-result">
-        <div class="score">${score} / ${quizData.length}</div>
+        <div class="score">${score} / ${currentQuiz.length}</div>
         <div class="comment">${comments[score]}</div>
         <button class="quiz-retry-btn" id="quizRetry">重新答题</button>
       </div>
@@ -632,34 +808,6 @@ if (quizStartBtn && quizContainer) {
   }
 
   quizStartBtn.addEventListener('click', renderQuiz);
-}
-
-// ========== Count-Up Animation ==========
-const statNums = document.querySelectorAll('.stat-num[data-target]');
-if (statNums.length > 0) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = parseInt(el.dataset.target);
-      const suffix = el.dataset.suffix || '';
-      const duration = 1500;
-      const start = performance.now();
-
-      function update(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.round(eased * target) + suffix;
-        if (progress < 1) requestAnimationFrame(update);
-      }
-
-      requestAnimationFrame(update);
-      observer.unobserve(el);
-    });
-  }, { threshold: 0.6 });
-
-  statNums.forEach(el => observer.observe(el));
 }
 
 // ========== Battlegrounds Render ==========
@@ -745,11 +893,15 @@ if (cardsGrid) {
   const TYPE_MAP = { MINION: '随从', SPELL: '法术', WEAPON: '武器', HERO: '英雄牌', LOCATION: '地标' };
   const RARITY_MAP = { COMMON: '普通', RARE: '稀有', EPIC: '史诗', LEGENDARY: '传说', FREE: '免费' };
 
-  let allCards = [];
-  let filteredCards = [];
+  var applyFilters = function() {};
+
+  var allCards = [];
+  var filteredCards = [];
+  var cardsLoaded = false;
+  var loadCardsData = function() {};
+  var cardLookup = {};
   let currentPage = 1;
   const PER_PAGE = 30;
-  let cardsLoaded = false;
 
   const classOrder = ['ALL','NEUTRAL','DEMONHUNTER','DRUID','HUNTER','MAGE','PALADIN','PRIEST','ROGUE','SHAMAN','WARLOCK','WARRIOR','DEATHKNIGHT'];
 
@@ -812,7 +964,7 @@ if (cardsGrid) {
 
   function getCardClass(c) { return c.cardClass || 'NEUTRAL'; }
 
-  function applyFilters() {
+  applyFilters = function() {
     const cls = document.querySelector('#classFilters .cards-filter-btn.active')?.dataset?.filter || 'ALL';
     const type = typeFilter.value;
     const rarity = rarityFilter.value;
@@ -863,11 +1015,12 @@ if (cardsGrid) {
     const pageCards = filteredCards.slice(start, start + PER_PAGE);
 
     cardsGrid.innerHTML = pageCards.map(c => {
-      const cardImg = `https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/${c.id}.png`;
+      const cardImg = `https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/${encodeURIComponent(c.id)}.png`;
+      const cardName = c.name || '卡牌';
 
       return `
-        <div class="card-item">
-          <img src="${cardImg}" alt="${c.name || '卡牌'}" loading="lazy" onerror="this.style.display='none'">
+        <div class="card-item" data-card-id="${escapeHTML(c.id)}" role="button" tabindex="0" aria-label="查看 ${escapeHTML(cardName)} 详情">
+          <img src="${cardImg}" alt="${escapeHTML(cardName)}" loading="lazy" onerror="this.style.display='none'">
         </div>`;
     }).join('');
 
@@ -899,48 +1052,138 @@ if (cardsGrid) {
     });
 
     cardsGrid.style.display = '';
+
   }
 
-  // Load cards data
-  fetch('cards-data.json')
-    .then(r => r.json())
-    .then(data => {
-      // Deduplicate by name — keep newest version (highest dbfId)
-      const seen = new Map();
-      data.forEach(c => {
-        const key = c.name;
-        if (!seen.has(key) || (c.dbfId || 0) > (seen.get(key).dbfId || 0)) seen.set(key, c);
-      });
-      allCards = [...seen.values()];
+  function handleCardItemOpen(target) {
+    const item = target.closest('.card-item');
+    if (!item) return;
+    openCardModal(item.dataset.cardId);
+  }
 
-      // Build set filter in chronological order (skip excluded sets)
-      const setNames = new Set(allCards.map(c => c.set).filter(Boolean));
-      const setOrder = SET_CHRONO.filter(s => setNames.has(s) && !EXCLUDED_SETS.has(s));
-      setOrder.forEach(s => {
-        const opt = document.createElement('option');
-        opt.value = s; opt.textContent = getSetName(s);
-        setFilter.appendChild(opt);
-      });
+  cardsGrid.addEventListener('click', (e) => handleCardItemOpen(e.target));
+  cardsGrid.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const item = e.target.closest('.card-item');
+    if (!item) return;
+    e.preventDefault();
+    openCardModal(item.dataset.cardId);
+  });
 
-      // Default sort: set → cost asc (excluded sets sorted last)
-      filteredCards = [...allCards];
-      filteredCards.sort((a, b) => {
-        const ai = setOrder.indexOf(a.set), bi = setOrder.indexOf(b.set);
-        const aIdx = ai === -1 ? 9999 : ai, bIdx = bi === -1 ? 9999 : bi;
-        const si = aIdx - bIdx;
-        return si !== 0 ? si : ((a.cost || 0) - (b.cost || 0));
-      });
+  // Card detail modal
+  const cardModal = document.getElementById('cardModal');
+  const cardModalImg = document.getElementById('cardModalImg');
+  const cardModalInfo = document.getElementById('cardModalInfo');
+  const cardModalClose = document.getElementById('cardModalClose');
 
-      const countTag = document.querySelector('#cards .version-tag');
-      if (countTag) countTag.textContent = allCards.length.toLocaleString() + ' 张';
-      cardsLoaded = true;
-      cardsLoading.style.display = 'none';
-      renderPage();
-    })
-    .catch(err => {
-      cardsLoading.textContent = '⚠️ 卡牌数据加载失败，请刷新页面重试。';
-      console.error('Card data load error:', err);
+  function openCardModal(cardId) {
+    const c = cardLookup[cardId];
+    if (!c || !cardModal) return;
+    cardModalImg.src = `https://art.hearthstonejson.com/v1/render/latest/zhCN/512x/${encodeURIComponent(c.id)}.png`;
+    cardModalImg.alt = c.name || '卡牌';
+    cardModalInfo.innerHTML = `
+      <h3>${escapeHTML(c.name || '')}</h3>
+      <p class="modal-meta">${escapeHTML(c.cost ?? 0)}费 · ${escapeHTML(TYPE_MAP[c.type] || c.type || '')} · ${escapeHTML(RARITY_MAP[c.rarity] || c.rarity || '')} · ${escapeHTML(getSetName(c.set))}</p>
+      ${c.text ? `<p class="modal-text">${sanitizeCardText(c.text)}</p>` : ''}
+    `;
+    cardModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCardModal() {
+    if (!cardModal) return;
+    cardModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  if (cardModal) {
+    cardModalClose.addEventListener('click', closeCardModal);
+    cardModal.addEventListener('click', (e) => {
+      if (e.target === cardModal) closeCardModal();
     });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && cardModal.style.display === 'flex') closeCardModal();
+    });
+  }
+
+  // Load cards data on demand — only when section is visible
+  let cardsLoadStarted = false;
+  let cardsLoadPromise = null;
+
+  loadCardsData = function() {
+    if (cardsLoaded) {
+      if (cardSearch.value.trim()) applyFilters();
+      return Promise.resolve(allCards);
+    }
+    if (cardsLoadStarted) return cardsLoadPromise;
+    cardsLoadStarted = true;
+    cardsLoading.style.display = '';
+    cardsLoading.textContent = '🔄 正在加载卡牌数据库...';
+
+    cardsLoadPromise = fetch('cards-data.json')
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then(data => {
+        // Deduplicate by name — keep newest version (highest dbfId)
+        const seen = new Map();
+        data.forEach(c => {
+          const key = c.name;
+          if (!seen.has(key) || (c.dbfId || 0) > (seen.get(key).dbfId || 0)) seen.set(key, c);
+        });
+        allCards = [...seen.values()];
+        cardLookup = {};
+        allCards.forEach(c => { cardLookup[c.id] = c; });
+
+        // Build set filter in chronological order (skip excluded sets)
+        const setNames = new Set(allCards.map(c => c.set).filter(Boolean));
+        const setOrder = SET_CHRONO.filter(s => setNames.has(s) && !EXCLUDED_SETS.has(s));
+        setOrder.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s; opt.textContent = getSetName(s);
+          setFilter.appendChild(opt);
+        });
+
+        // Default sort: set → cost asc (excluded sets sorted last)
+        filteredCards = [...allCards];
+        filteredCards.sort((a, b) => {
+          const ai = setOrder.indexOf(a.set), bi = setOrder.indexOf(b.set);
+          const aIdx = ai === -1 ? 9999 : ai, bIdx = bi === -1 ? 9999 : bi;
+          const si = aIdx - bIdx;
+          return si !== 0 ? si : ((a.cost || 0) - (b.cost || 0));
+        });
+
+        const countTag = document.querySelector('#cards .version-tag');
+        if (countTag) countTag.textContent = allCards.length.toLocaleString() + ' 张';
+        cardsLoaded = true;
+        cardsLoading.style.display = 'none';
+        if (cardSearch.value.trim()) applyFilters();
+        else renderPage();
+        return allCards;
+      })
+      .catch(err => {
+        cardsLoadStarted = false;
+        cardsLoadPromise = null;
+        cardsLoading.textContent = '⚠️ 卡牌数据加载失败，请刷新页面重试。';
+        console.error('Card data load error:', err);
+      });
+    return cardsLoadPromise;
+  }
+
+  // Lazy-load when cards section scrolls into view
+  const cardsSection = document.getElementById('cards');
+  if (cardsSection) {
+    const cardsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        loadCardsData();
+        cardsObserver.unobserve(cardsSection);
+      }
+    }, { rootMargin: '200px' });
+    cardsObserver.observe(cardsSection);
+  } else {
+    loadCardsData(); // fallback
+  }
 
   // Filter event listeners
   document.querySelectorAll('#classFilters .cards-filter-btn').forEach(btn => {
@@ -963,4 +1206,3 @@ if (cardsGrid) {
     searchTimeout = setTimeout(() => { if (cardsLoaded) applyFilters(); }, 300);
   });
 }
-

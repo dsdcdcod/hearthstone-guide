@@ -50,7 +50,10 @@
   <div class="container">
     <h1 class="logo">🔥 炉石传说攻略站</h1>
     <p class="subtitle">从新手到传说 · 全方位策略指南</p>
-    <nav class="nav-bar">
+    <button class="hamburger" id="hamburgerBtn" aria-label="菜单" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-bar" id="navBar">
       <a href="#meta">当前环境</a>
       <a href="#expansion">扩展包</a>
       <a href="#heroes">职业攻略</a>
@@ -69,10 +72,33 @@
   <div class="container">
     <h2>在酒馆中打磨你的技艺</h2>
     <p>掌握对局节奏、资源管理与卡组构筑，一步步登上传说宝座</p>
-    <div class="banner-stats">
-      <div class="stat-item"><span class="stat-num" data-target="11" data-suffix="">0</span><span class="stat-label">职业</span></div>
-      <div class="stat-item"><span class="stat-num" data-target="5000" data-suffix="+">0</span><span class="stat-label">可收集卡牌</span></div>
-      <div class="stat-item"><span class="stat-num" data-target="3" data-suffix="">0</span><span class="stat-label">主流模式</span></div>
+    <div class="global-search-box">
+      <input type="text" id="globalSearch" placeholder="搜索攻略内容...（职业/卡组/卡牌/技巧）" aria-label="全局搜索">
+      <span class="search-icon">🔍</span>
+      <div class="global-search-results" id="globalSearchResults" style="display:none;"></div>
+    </div>
+    <div class="hero-actions" aria-label="常用入口">
+      <a class="hero-action primary" href="#decks">
+        <span>想直接上分</span>
+        <strong>看热门卡组</strong>
+      </a>
+      <a class="hero-action" href="#beginner">
+        <span>刚开始玩</span>
+        <strong>走新手路线</strong>
+      </a>
+      <a class="hero-action" href="#cards">
+        <span>查一张牌</span>
+        <strong>打开卡牌图鉴</strong>
+      </a>
+      <a class="hero-action" href="#battlegrounds">
+        <span>玩其他模式</span>
+        <strong>看酒馆/竞技场</strong>
+      </a>
+    </div>
+    <div class="hero-trust">
+      <span>更新：2026.05</span>
+      <span>覆盖：标准、狂野、酒馆、竞技场</span>
+      <span>说明：攻略会过期，卡牌以游戏内为准</span>
     </div>
   </div>
 </section>
@@ -160,18 +186,21 @@
 <section id="decks" class="section decks-section">
   <div class="container">
     <h2 class="section-title">🎴 热门卡组推荐</h2>
-    <div class="deck-filter">
-      <button class="filter-btn active" data-filter="all">全部</button>
+    <div class="deck-filter" aria-label="模式筛选">
       <button class="filter-btn format-btn active" data-format="all">全部模式</button>
       <button class="filter-btn format-btn" data-format="standard">标准</button>
       <button class="filter-btn format-btn" data-format="wild">狂野</button>
     </div>
-    <div class="deck-filter">
-      <button class="filter-btn active" data-filter="aggro">快攻</button>
+    <div class="deck-filter" aria-label="类型筛选">
+      <button class="filter-btn active" data-filter="all">全部类型</button>
+      <button class="filter-btn" data-filter="aggro">快攻</button>
       <button class="filter-btn" data-filter="midrange">中速</button>
       <button class="filter-btn" data-filter="control">控制</button>
       <button class="filter-btn" data-filter="combo">组合技</button>
       <button class="compare-toggle-btn" id="compareToggle">⚖️ 对比模式</button>
+    </div>
+    <div class="deck-filter" id="classFilterRow">
+      <button class="filter-btn class-filter-btn active" data-class="all">全部职业</button>
     </div>
     <div class="compare-panel" id="comparePanel" style="display:none;">
       <div class="compare-slot" id="compareSlot1">
@@ -396,7 +425,7 @@
 <section id="cards" class="section cards-section">
   <div class="container">
     <h2 class="section-title">🃏 卡牌图鉴 <span class="version-tag">7,935张</span></h2>
-    <p class="expansion-intro">按职业、类型、稀有度、费用筛选 · 数据来自 HearthstoneJSON 实时更新</p>
+    <p class="expansion-intro">按职业、类型、稀有度、费用筛选 · 本地卡牌库，实际效果以游戏内为准</p>
 
     <div class="cards-controls">
       <div class="cards-filter-row" id="classFilters">
@@ -448,6 +477,15 @@
 </footer>
 
 <a href="#" class="back-to-top" id="backToTop" aria-label="返回顶部">⬆</a>
+
+<!-- Card Detail Modal -->
+<div class="card-modal-overlay" id="cardModal" style="display:none;">
+  <div class="card-modal">
+    <button class="card-modal-close" id="cardModalClose" aria-label="关闭">✕</button>
+    <img class="card-modal-img" id="cardModalImg" src="" alt="">
+    <div class="card-modal-info" id="cardModalInfo"></div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
